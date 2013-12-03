@@ -1,0 +1,80 @@
+<style>
+	table.serifa{font-family:Arial,Helvetica,sans-serif;}
+</style>
+
+<script>
+	function validateForm()		  
+	{	
+
+		var checkedAtLeastOne = false;
+		$('input[type="checkbox"]').each(function() {
+			if ($(this).is(":checked")) {
+				checkedAtLeastOne = true;
+			}
+		});
+		if (checkedAtLeastOne == true)
+		{
+			return true;
+		}
+		else
+		{
+			alert("Please select candidate to compare");
+			return false;
+		}
+	}	
+</script>
+<% unless(@cnt_ary.blank?)%>
+	<div class = "textfont">	
+		<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+		<table align ="center">
+			 <% @cnt_ary.each do |value| %>
+					<% if (@i%3 == 0) %>
+			<tr>
+					<% end %>	
+				<td>
+					
+						<table bgcolor="#F6EDD1" width=150 height=120 border="1">
+							<tr>
+								<td bgcolor="#E6CC80">78</td>
+								<td style="visibility:hidden"></td>
+								<td style="visibility:hidden"></td>
+								<td style="visibility:hidden"></td>
+								<td style="visibility:hidden"></td>
+								<td bgcolor="#E6CC80"><div title="Total skill score for the job"><%= value['jobSkillScore'] %></div></td>
+							</tr>
+
+						<tr>
+							<td colspan="6" align = "center"><% if (value['check'] == 0) %>
+																<div title="Click to view candidate prifile"><%= link_to value['candidateName']  , url_for({:controller => 'home', :action => 'jobSeekerProfile' , :prospect => value['candidateID'].to_s , :jobID => @jobID.to_s }), {:style=>'color:#0066FF;'} %></div><br><div title="Score of the candidate for the job"><%= value['employeeSkillScore'] %></div></td>
+															  <% else %>
+																<div title="Click to view candidate prifile"><%= link_to value['candidateName']  , url_for({:controller => 'home', :action => 'jobSeekerProfile' , :prospect => value['candidateID'].to_s , :jobID => @jobID.to_s }), {:style=>'color:#FF0000;'} %></div><br><div title="Score of the candidate for the job"><%= value['employeeSkillScore'] %></div></td>
+															  <% end %>	
+						</tr>
+
+						<tr>
+							<td bgcolor="#E6CC80"><div title="No: of jobs candidate applied for"><%= value['appliedFor'].to_s  %></div></td>
+							<td style="visibility:hidden"></td>
+							<td style="visibility:hidden"></td>
+							<td style="visibility:hidden"></td>
+							<td style="visibility:hidden"></td>
+							<td bgcolor="#E6CC80">3</td>
+						</tr>
+						</table>
+						<input type="checkbox" name="candidate[]" value="<%= value['candidateID'] %>">compare</td>
+				</td>
+				
+			
+						<%  @i = @i+1 %>
+						<% if (@i%3 == 0) %>
+			</tr>
+						<% end %>
+			<% end %>			
+			<tr>
+				<td><input type="submit" name="add" value="Compare" id="add" onclick ="return validateForm()" ></td>
+			</tr>	
+		</table>
+	</div>
+<% else %>
+	Sorry.. No Available Candidates	
+<% end %>
+			

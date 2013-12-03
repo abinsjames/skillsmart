@@ -1,0 +1,91 @@
+
+
+<script>
+	function validate(val)		  
+	{	
+		var jobID 		 	 = 		document.getElementById("jobID");
+		var jobIDVal 		 = 		jobID.value;
+		var chkId="#chk_"+val
+		if($(chkId).is(':checked'))
+		{
+			
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/home/connectCandidate', 
+					  data: {'id' : val, 'jobID' : jobIDVal},
+					  success: function(data) 
+					  {
+							alert("Successfully Invited");
+					  } 
+				  });
+		}
+		
+	}
+</script>
+
+<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+<div class = "textfont">
+	<div style="text-align:center;">
+		<% unless(@candidateData.blank?)%>
+			<table align ="left" border ="0">
+				
+				<tr bgcolor="#edf2f4">
+					<td align ="left" width="150">Required Skills</td>
+					<td align ="left" width="150">Employer Proficiency</td>
+					<% @candidateData.each do |value| %>
+						<td width="150"><%= link_to value['candidateFirstName']  , url_for({:controller => 'home', :action => 'jobSeekerProfile' , :prospect => value['candidateID'].to_s }), {:style=>'color:#FF9966;'} %></td>
+					<% end %>	
+				</tr>
+				<tbody>
+				<% unless(@Req_skill.blank?)%>
+					<% @i=0 %>
+					<% while (@i<@countSkill) %>
+						<tr>
+							<td align ="left"><%= @Req_skill[@i]["skillName"] %></td>
+							<td><%= @Req_skill[@i]["empprof"] %></td>
+							<% @j=@i %>
+							<% while (@j<((@count*@countSkill))) %>
+								<td><%= @Req_skill[@j]["prof"] %></td>						
+							<%	@j=@j+@countSkill %>
+							<% end %>
+						</tr>
+						<%	@i=@i+1 %>
+					<% end %>	
+				<% end %>
+				
+				<% unless(@Des_skill.blank?)%>
+					<% @i=0 %>
+					<tr bgcolor="#edf2f4">
+						<td align ="left">Desired Skills</td>
+						<td align ="left" width="150">Employer Proficiency</td>
+						<% @candidateData.each do |value| %>
+							<td width="150"><%= link_to value['candidateFirstName']  , url_for({:controller => 'home', :action => 'jobSeekerProfile' , :prospect => value['candidateID'].to_s }), {:style=>'color:#FF9966;'} %></td>
+						<% end %>
+					</tr>	
+					<% while (@i<@countDesSkill) %>
+						<tr>
+							<td align ="left"><%= @Des_skill[@i]["skillName"] %></td>
+							<td><%= @Des_skill[@i]["empprof"] %></td>
+							<% @j=@i %>
+							<% while (@j<((@count*@countDesSkill))) %>
+								<td><%= @Des_skill[@j]["prof"] %></td>						
+							<%	@j=@j+@countDesSkill %>
+							<% end %>
+						</tr>
+						<%	@i=@i+1 %>
+					<% end %>
+				<% end %>
+				<tr>
+					<td></td>
+					<td></td>
+					<% @candidateData.each do |value| %>
+						<td width="155"><input type="checkbox" name="invite" onchange="validate('<%= value['candidateID'].to_s %>')" value="<%= value['candidateID'].to_s %>" id="chk_<%= value['candidateID'].to_s %>">Connect with candidate</td>
+					<% end %>	
+				</tr>		
+				</tbody>
+			</table>
+		<% else %>
+			<%= @msg %>	
+		<% end %>
+	</div>
+</div>

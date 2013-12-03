@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("button").click(function() {
+			
+				var skill 			 	 = 		document.getElementById('job');
+				var description		 	 = 		document.getElementById('company');
+				var date			 	 = 		document.getElementById('opdate');
+				var tilldate		 	 = 		document.getElementById('datepickers');
+				var workHistoryID		 = 		document.getElementById('workHistoryID');
+
+
+
+				var skilllen 		 	 = 		skill.value.length;
+				var descriptionlen 	 	 = 		description.value.length;
+				var datelen 	 		 = 		date.value.length;
+				var tilldatelen 		 = 		tilldate.value.length;
+				
+				if (skilllen == 0 || descriptionlen == 0 || datelen == 0 || tilldatelen == 0)
+				{
+					alert("some field is empty");  
+					return false;
+				}
+				
+				else
+				{
+		
+					  var skills 		 	 = 		skill.value;
+					  var descriptions	 	 = 		description.value;
+					  var dates 	 		 = 		date.value;
+					  var tilldates 		 = 		tilldate.value;	
+					  var workHistoryIDs	 = 		workHistoryID.value;
+					  $.ajax({ 
+							  type: 'GET', 
+							  url: '/jobseeker/updateWorkHistory', 
+							  data: {'job' : skills, 'company':descriptions, 'from':dates, 'till':tilldates, 'workHistoryID':workHistoryIDs},
+							  success: function(data) 
+							    {
+									  opener.location.reload(true);
+									  self.close();
+								} 
+						    });				
+				}
+		});
+	});	
+</script>
+
+<script>
+$(document).ready(function(){
+    $( "#wrapHeader" ).hide();
+    $( "#wrapFooter" ).hide();
+});
+</script>
+
+</head>
+
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="wrapContent" class="clearfix">
+
+
+
+<!-- ONE COLUMN -->
+<div id="oneCol" class="clearfix">
+	<!-- Insert jQuery tabs here if applicable -->
+	<div class="content">
+		<table width="100%">
+			<tbody>
+				<tr>
+					<td>
+						<%= render 'formEditWorkHistory' %>
+					</td>				
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- END ONE COLUMN -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</body>
+</html>
+
+
+

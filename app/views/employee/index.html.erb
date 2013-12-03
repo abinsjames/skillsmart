@@ -1,0 +1,48 @@
+<title>Employee</title>
+<h1 align="center">Login</h1>
+<div align = "right">
+<%= link_to "New User", {:controller => "home", :action => "add_employee"}%>
+</div>
+<body background='../images/background.jpg'>
+<script type="text/javascript">
+function validateForm()
+	 {
+		alert("sg");
+		var username = document.getElementById('name');
+		var password = document.getElementById('pass');
+		var passLength = password.value.length;
+		var userLength = username.value.length;
+		
+		if ( userLength == 0 || passLength == 0)  
+		{  
+			 alert("UseName or password cannot be null);
+			 return false; 
+		}  
+		
+		else if (passLength < 6)  
+		{  
+			 alert("minimum password size is 6");
+			 return false; 
+		} 
+		else
+		{
+			return true;
+		}	
+	}
+</script>
+<form method="post" action="employee/index">
+	<table border="0" align="right">
+		<tr>
+		  <td>Username:</td> 	<td><input type="text" name="empUsName" id="name"></td>
+		</tr>
+		<tr>  
+		  <td>Password:</td> 	<td><input type="password" name="empPass" id="pass"></td>
+		 <tr> 
+		 <tr>
+			 <td></td>			<td><input type="submit" name="login" id="login" value="Login" onclick ="return validateForm()"></td>
+		 </tr>
+		 <p style= "color:red" align ="right"><%=session[:log]%></p>
+	</table>
+</form>
+
+

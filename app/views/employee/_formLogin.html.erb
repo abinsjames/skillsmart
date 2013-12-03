@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.css" />
+<script src="/assets/javascripts/jquery-1.9.1.js"></script>
+<script src="/assets/javascripts/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.min.css" />
+
+
+<script>
+
+
+		
+	function validateForm()
+	{
+
+		var empUserName 			 = 		document.getElementById('name');
+		var empPassword 	 		 = 		document.getElementById('password');
+		
+		var empMobilelen 			 = 		empUserName.value.length;
+		var empEmaillen 		 	 = 		empPassword.value.length;
+		
+		
+
+		
+		if (empMobilelen == 0 ||  empEmaillen == 0)
+		{
+			alert("Some fields are empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+	
+		
+
+	
+</script>
+
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+
+<div class = "textfont">
+    <table border="0" align="center">
+		<% if(@msg) %>
+			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					Username or Password incorrect
+				</p>
+			</div>
+		<% end %>
+		<tr>
+		  <td align="right">Username:</td> 	<td><input type="text" name="empUsName" id="name"></td>
+		</tr>
+		<tr>  
+		  <td align="right">Password:</td> 	<td><input type="password" name="empPass" id="password"></td>
+		 <tr> 
+		 <tr>
+			 <td></td>			<td><input type="submit" name="login" id="login" value="Login"   onclick ="return validateForm()"></td>
+		 </tr>
+		 <div align = "center">
+			<%= link_to "New User", {:controller => "employee", :action => "addEmployee"}%>
+		 </div>
+	</table>
+<div>

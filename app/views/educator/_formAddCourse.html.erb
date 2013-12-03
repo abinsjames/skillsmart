@@ -1,0 +1,137 @@
+<style>
+
+	
+	.outer_container
+	{
+		margin:10px;
+	}
+	
+	
+	.drop { width:170px; }
+	.drops { width:170px; }
+	#jobDrop { width:150px; }
+	
+		#firstDrop , #secDrop{
+	    border: 1px solid #D1D3D5;
+	    border-radius: 2px 2px 2px 2px;
+	    color: #6A747C;
+	    font-family: 'Questrial', sans-serif;
+	    font-size: 15px;
+	    padding: 10px;
+	}
+</style>
+
+<script>
+	$(document).ready(function(){
+		$("#mydiv").hide();
+		$("#btn").hide();
+		
+		$('.drop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/popSecond', 
+				  data: {'id' : $('.drop').val()},
+				  success: function(data) 
+				  {
+						   $('.drops').empty();
+						   $('.drops').append( $('<option value= "">Select Speciality</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('.drops').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.drops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/PopThird', 
+				  data: {'id' : $('.drops').val()},
+				  success: function(data) 
+				  {
+						   $('#txt').empty();	
+						   $('#txt').append('click checkbox to add your Skill');
+						   $('.my').empty();
+						   $.each(data,function(i, v) {
+						   $('.my').append( $('<div><span>-</span><input type="checkbox" name="skill[]" class = "boox" value="'+ data[i][0] +'" /><span >'+data[i][1] +'</span></div>'));
+						   $("#btn").show();
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<div class ="textfont">
+	<table>
+		<tr>
+			<td>Course Title</td>
+			<td><input type="text" value=""  name="courseTitle" id="courseTitle"></td>
+			<td>Cost</td>
+			<td><input type="text" size ="22px" value=""  name="cost" id="cost"></td>
+		</tr>
+		
+		<tr>
+			<td>Course Registration</td>
+			<td><input type="text" value=""  name="courseRegister" id="courseRegister"></td>
+			<td>Enrollment Period</td>
+			<td><input type="text" size ="8px" value=""  name="enrollmentStartDate" id="enrollmentStartDate" class ="date"> - <input type="text" size ="8px" value=""  name="enrollmentEndDate" id="enrollmentEndDate" class ="date"></td>
+		</tr>
+		
+		<tr>
+			<td>Course ID Number</td>
+			<td><input type="text" value=""  name="courseIDNumber" id="courseIDNumber"></td>
+			<td>Course Period</td>
+			<td><input type="text" size ="8px" value=""  name="courseStartDate" id="courseStartDate" class ="date"> - <input type="text" size ="8px" value=""  name="courseEndDate" id="courseEndDate" class ="date"></td>
+		</tr>
+		
+		<tr>
+			<td>Course Meets</td>
+			<td><input type="text" value=""  name="courseMeets" id="courseMeets"></td>
+			<td># of Students</td>
+			<td><input type="text" value="" size ="3px"  name="noOfStudents" id="noOfStudents"></td>
+		</tr>
+		
+		
+		<tr>
+			<td colspan ="2">
+				<div style="width:100%;" class ="textfont">
+					<table>
+						<tr>
+							<td >
+								Select Category
+							</td>
+							<td >
+							
+								<%= select_tag "sel_group", options_for_select(@skill) ,{:id => "firstDrop" ,:class => "drop"} %>
+							</td>
+						</tr>
+						<tr>
+							<td >
+								Select Specialty
+							</td>
+							<td >
+							
+								<%= select_tag "sel_group1", options_for_select(@subskill), {:id => "secDrop" , :class => "drops"} %>
+							</td>
+						</tr>		
+					</table>
+				</div>
+				<div style="width:100%;" class ="textfont">
+					<span id ="txt"></span>
+					<div class="my" style="align:center; width:175%;"></div>
+					<div id = "btn"><input type = "submit" value = "Submit"  name ="Submit"></div>
+				</div>	
+			</td>
+			<td valign ="top"> Description </td>
+			<td valign ="top"><textarea name="courseDescription"  id="courseDescription"  style="width: 215px; height: 133px;"></textarea></td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,105 @@
+<script>
+	function changeProficiency(val)		  
+		{	
+			var value = $("#drp_"+val).val()
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/jobseeker/changeProficency',
+					  data: {'proficency' : value , 'id' : val}
+				   })
+		}
+</script>
+
+<script>
+	function changeExperience(val)		  
+		{	
+			var value = $("#drps_"+val).val()
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/jobseeker/changeExperience',
+					  data: {'experience' : value , 'id' : val}
+				   })
+		}
+</script>
+
+
+<div class = "textfont">
+	<% unless(@dataAry.nil?)%>	
+		<table>
+			<tr>	
+				<td>
+					<div STYLE="margin-left: 0%">
+						<table width="100%" border="0" cellpadding="5" cellspacing="0">
+							<tr bgcolor="#edf2f4">
+								<td width ="200">Category</td>
+								<td width ="200">Speciality</td>
+								<td width ="200">Skills</td>
+								<td width ="200">Proficiency</td>
+								<td width ="200">Experience</td>
+							</tr>
+							<% @dataAry.each do |value| %>	
+								<tr>
+									<td width ="100"><%= value['category'].to_s %></td>
+									<td width ="100"><%= value['speciality'].to_s %></td>
+									<td width ="100"><%= value['skillname'].to_s %></td>
+									<td><select class="downdownbox" id="drp_<%= value['portfolioskillid'].to_s  %>" onchange="changeProficiency('<%= value['portfolioskillid'].to_s %>')" > <option value="1" <% if(@prof.to_i == 1) %> selected <% end %> >1</option><option value="2" <% if(@prof.to_i == 2) %> selected <% end %> >2</option><option value="3" <% if(@prof.to_i == 3) %> selected <% end %> >3</option><option value="4" <% if(@prof.to_i == 4) %> selected <% end %> >4</option><option value="5" <% if(@prof.to_i == 5) %> selected <% end %> >5</option><option value="6" <% if(@prof.to_i == 6) %> selected <% end %> >6</option><option value="7" <% if(@prof.to_i == 7) %> selected <% end %> >7</option><option value="8" <% if(@prof.to_i == 8) %> selected <% end %> >8</option><option value="9" <% if(@prof.to_i == 9) %> selected <% end %> >9</option><option value="10" <% if(@prof.to_i == 10) %> selected <% end %> >10</option></select></td>
+									<td><select class="downdownbox" id="drps_<%= value['portfolioskillid'].to_s %>" onchange="changeExperience('<%= value['portfolioskillid'].to_s %>')" > <option value="1" <% if(@exp.to_i == 1) %> selected <% end %> >1</option><option value="2" <% if(@exp.to_i == 2) %> selected <% end %> >2</option><option value="3" <% if(@exp.to_i == 3) %> selected <% end %> >3</option><option value="4" <% if(@exp.to_i == 4) %> selected <% end %> >4</option><option value="5" <% if(@exp.to_i == 5) %> selected <% end %> >5</option><option value="6" <% if(@exp.to_i == 6) %> selected <% end %> >6</option><option value="7" <% if(@exp.to_i == 7) %> selected <% end %> >7</option><option value="8" <% if(@exp.to_i == 8) %> selected <% end %> >8</option><option value="9" <% if(@exp.to_i == 9) %> selected <% end %> >9</option><option value="10" <% if(@exp.to_i == 10) %> selected <% end %> >10</option></select></td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+		
+		<table>
+			<tr bgcolor="#edf2f4">
+				<td>Certifificates</td>
+				<td><%= link_to "Add" ,{ :controller => "employee", :action => "myCertificates" , :portId => params[:portId].to_s } , :onclick=>"window.open(this.href,'myCertificates', 'height=400,width=900,top=250,left=300' ); return false;" %></td>
+			</tr>
+			<tr bgcolor="#edf2f4">
+				<td width ="100">Certificates</td>
+				<td width ="100">Description</td>
+			</tr>
+			<% @certi.each do |value| %>	
+				<tr>
+					<td width ="100"><%= value['certificate'].to_s %></td>
+					<td width ="100"><%= value['description'].to_s %></td>
+				</tr>
+			<% end %>	
+		</table>	
+		<table>
+			<tr bgcolor="#edf2f4">
+				<td>Examples</td>
+				<td><%= link_to "Add"  , {:controller => "employee", :action => "myExamples" , :portId => params[:portId].to_s} , :onclick=>"window.open(this.href,'myExamples', 'height=400,width=900,top=250,left=300' ); return false;" %></td>
+			</tr>
+			<tr bgcolor="#edf2f4">
+				<td width ="100">References</td>
+				<td width ="100">Description</td>
+			</tr>
+			<% @exampl.each do |value| %>	
+				<tr>
+					<td width ="100"><%= value['example'].to_s %></td>
+					<td width ="100"><%= value['description'].to_s %></td>
+				</tr>
+			<% end %>	
+		</table>
+		<table>
+			<tr bgcolor="#edf2f4">
+				<td>References</td>
+				<td><%= link_to "Add"  , {:controller => "employee", :action => "myReferences" , :portId => params[:portId].to_s} , :onclick=>"window.open(this.href,'myReferences', 'height=400,width=900,top=250,left=300' ); return false;" %></td>
+			</tr>
+			<tr bgcolor="#edf2f4">
+				<td width ="100">References</td>
+				<td width ="100">Description</td>
+			</tr>
+			<% @refer.each do |value| %>	
+				<tr>
+					<td width ="100"><%= value['reference'].to_s %></td>
+					<td width ="100"><%= value['description'].to_s %></td>
+				</tr>
+			<% end %>	
+		</table>
+	<% end %>
+</div>
+

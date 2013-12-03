@@ -1,0 +1,71 @@
+<title>Employer</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<script>
+	$(function() {
+		$( "#datepickers" ).datepicker();
+	});
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("button").click(function() {
+			
+				var closeDate		 	 = 		document.getElementById('datepickers');
+				var jobID			 	 = 		document.getElementById('jobID');
+				
+				var closeDatelen 	 	 = 		closeDate.value.length;
+				
+				
+				if (closeDatelen == 0 )
+				{
+					alert("some field is empty");  
+					return false;
+				}
+				
+				else
+				{
+		
+					  var cldate 		 	 = 		closeDate.value;
+					  var jobIDVal 		 	 = 		jobID.value;
+					 
+					  $.ajax({ 
+							  type: 'GET', 
+							  url: '/home/addPostPosition', 
+							  data: {'jobIDVal' : jobIDVal, 'cldate':cldate},
+							  success: function(data) 
+							    {
+									  opener.location.reload(true);
+									  self.close();
+								} 
+						    });				
+				}
+		});
+	});	
+</script>
+
+<div id="container" style="width:100%">
+	<div id="header" style="height:50px;margin-left: 3%;">
+		<%= link_to image_tag('/images/logo.jpg') , url_for({:controller => 'home', :action => 'homePage'}) %> 
+	</div>
+		<table width="70%" border="0" cellpadding="0" cellspacing="0" align ="center" >
+
+			<tr>
+				&nbsp;
+			</tr>
+			<tr>
+				&nbsp;
+			</tr>
+		
+			<tr>
+				<td>
+					<%= form_tag(:action => "popupPostPosition") do  %>	
+						<%= render 'formPopupPostPosition' %>
+					<%end%>
+				</td>
+			</tr>
+		</table>
+	</div>	
+</div>

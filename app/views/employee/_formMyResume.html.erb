@@ -1,0 +1,39 @@
+
+<% unless(@resArray.nil?)%>
+	<table>	
+		<tr>
+			<td>
+				<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+					<tr>
+						<td><p><div class = "textfont"><span style="width:52px;float:left;">Click to</span><div style="width:52px;float:left;"> <%= link_to "Submit", {:controller => "employee", :action => "myResumePopup"},  :onclick=>"window.open(this.href,'myResumePopup', 'height=450,width=530,top=250,left=600' ); return false;" %> </div><span style="width:520px;float:left;"> your Resume</span></div></p></td>
+					</tr>
+					<tr>
+						<td align="center" valign="middle">
+							<table width="100%" border="0" cellpadding="0" cellspacing="0">
+								<% @resArray.each do |value| %>
+									<tr>
+										<td width ="300"><%= value['name'].to_s %></td>
+										<td><%= link_to 'Delete' %></td>
+									</tr>
+									<tr>
+										<td width ="300"><%= value['created_at'].to_s %></td>
+										<td><%= link_to 'make prefered' %></td>
+									</tr>
+									
+									<tr>
+										<td>&nbsp</td>
+									<tr>
+									<tr>
+										<td>&nbsp</td>
+									<tr>
+								<% end %>
+								
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>	
+<% end %>	
+				

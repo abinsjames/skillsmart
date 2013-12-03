@@ -1,0 +1,73 @@
+<script>
+	function validateForm()
+	{
+
+		var name 			 	 = 		document.getElementById('insName');
+		var address1		 	 = 		document.getElementById('insAdd1');
+		var address2		 	 = 		document.getElementById('insAdd2');
+		var city			 	 = 		document.getElementById('insCity');
+		var state 			 	 = 		document.getElementById('insState');
+		var zip				 	 = 		document.getElementById('insZip');
+		var website			 	 = 		document.getElementById('insWebsite');
+
+
+		var namelen 		 	 = 		name.value.length;
+		var address1len 	 	 = 		address1.value.length;
+		var address2len		 	 = 		address2.value.length;
+		var citylen		 	 	 = 		city.value.length;
+		var statelen 		 	 = 		state.value.length;
+		var ziplen		 	 	 = 		zip.value.length;
+		var websitelen 		 	 = 		website.value.length;
+
+		
+		if (namelen == 0 || address1len == 0 || address2len == 0 || citylen == 0 || statelen == 0 || ziplen == 0 || websitelen == 0 )
+		{
+			alert("Some  fields are empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+</script>
+
+<div class = "textfont">
+	<table width="60%" border="0" cellpadding="0" cellspacing="10">
+		<tr>
+			<td>
+				Institution Name
+			</td>
+			<td>
+				<input type="text" name="insName" id="insName"></td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Location
+			</td>
+			<td>
+				<input type="text" name="location" id="location"></td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Website
+			</td>
+			<td>
+				<input type="text" name="insWebsite" id="insWebsite"></td>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input type="submit" name="add" value="Add" id="add">
+				<input type="submit" name="cancel" value="Cancel" id="cancel">
+			 </td>
+		</tr>
+	<table>
+</div>

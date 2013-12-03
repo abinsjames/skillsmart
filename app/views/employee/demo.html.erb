@@ -1,0 +1,36 @@
+<title>Employee</title>
+<div id="container" style="width:100%">
+	<div  class ="textfont">
+		<div id="header" style="height:50px;margin-left: 3%;margin-top: 1.5%;">
+			<%= link_to image_tag('/images/logo.jpg') , url_for({:controller => 'home', :action => 'homePage'}) %> 
+		</div>
+		<div id="menu" style="height:700px;width: 150px;float:left;">
+			<br>
+			<p style ="margin-left:20px;">Focus</P>
+			<%= link_to "My Jobs" , url_for({:controller => 'employee', :action => 'myJobFinder'}) , {:class => "linkStyle"} %> <br> 
+			<%= link_to "My Portfolio" , url_for({:controller => 'employee', :action => 'portfolioNew'}), {:class => "linkStyle"} %><br>
+			<%= link_to "Dashboard", url_for({:controller => 'employee', :action => 'dashboard'}), {:class => "linkStyle"}   %><br>
+		</div>
+		<table width="70%" border="0" cellpadding="0" cellspacing="0" align ="center" >
+			<tr>
+				<td align ="right">Welcome <%= $fname %> <%= $lname %></td>
+			</tr>
+			<tr>
+				<td><div style=" margin-left:200px;"><strong><h1>My Job Finder</h1></strong></div></td>
+			</tr>
+			<tr>
+				<td><p style=" margin-left:250px;">List of jobs you can choose<br>
+				Jobs can be filtered by Salary Offered, Job Category or Distance from your location</p><br></td>
+			</tr>
+	</div>		
+		
+			<tr>
+				<td>
+					<%= form_tag(:action => "demo") do  %>
+						<%= render 'formDemo' %>
+					<%end%>	
+				</td>
+			</tr>
+		</table>
+	</div>	
+</div>

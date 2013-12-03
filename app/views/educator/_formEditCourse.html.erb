@@ -1,0 +1,81 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	var name 			= 		document.getElementById('name');
+	var password		= 		document.getElementById('password');
+	var email			= 		document.getElementById('email');
+	var permission  	= 		document.getElementById('permission');
+	var fname			= 		document.getElementById('fname');
+	var lname		  	= 		document.getElementById('lname');
+	
+	var namelen 		= 		name.value.length;
+	var passwordlen 	= 		password.value.length;
+	var emaillen 		= 		email.value.length;
+	var permissionlen 	= 		permission.value.length;
+	var fnamelen 		= 		fname.value.length;
+	var lnamelen 		= 		lname.value.length;
+	
+	var x				=		email.value;
+	var atpos			=		x.indexOf("@");
+	var dotpos			=		x.lastIndexOf(".");
+
+	if (namelen == 0 ||  emaillen == 0 || permissionlen == 0 || passwordlen == 0 || fnamelen == 0 || lnamelen == 0)
+	{
+		alert("Some fields are empty");  
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+    {
+	    alert("Not a valid e-mail address");
+	    return false;
+    }
+}
+</script>
+<input type="hidden" value="<%= @courseID	 %>"  name="courseID" id="courseID">
+<div class = "textfont">
+	<% unless(@courseData.nil?)%>
+		<% @courseData.each do |value| %>
+			<table align = "center">
+				<tr>
+					<td>Course Title</td>
+					<td><input type="text" value="<%= value['title'] %>"  name="courseTitle" id="courseTitle"></td>
+					<td>Cost</td>
+					<td><input type="text" size ="22px" value="<%= value['cost'] %>"  name="cost" id="cost"></td>
+				</tr>
+				
+				<tr>
+					<td>Course Registration</td>
+					<td><input type="text" value="<%= value['courseRegisterURL'] %>"  name="courseRegister" id="courseRegister"></td>
+					<td>Enrollment Period</td>
+					<td><input type="text" size ="8px" value="<%= value['enrollStartPeriod'] %>"  name="enrollmentStartDate" id="enrollmentStartDate" class ="date"> - <input type="text" size ="8px" value="<%= value['enrollEndPeriod'] %>"  name="enrollmentEndDate" id="enrollmentEndDate" class ="date"></td>
+				</tr>
+				
+				<tr>
+					<td>Course ID Number</td>
+					<td><input type="text" value="<%= value['courseIdNo'] %>"  name="courseIDNumber" id="courseIDNumber"></td>
+					<td>Course Period</td>
+					<td><input type="text" size ="8px" value="<%= value['startdate'] %>"  name="courseStartDate" id="courseStartDate" class ="date"> - <input type="text" size ="8px" value="<%= value['endDate'] %>"  name="courseEndDate" id="courseEndDate" class ="date"></td>
+				</tr>
+				
+				<tr>
+					<td>Course Meets</td>
+					<td><input type="text" value="<%= value['courseMeet'] %>"  name="courseMeets" id="courseMeets"></td>
+					<td># of Students</td>
+					<td><input type="text" value="<%= value['numberStudent'] %>" size ="3px"  name="noOfStudents" id="noOfStudents"></td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<input type="submit" name="update" value="Update" id="update">
+						<input type="submit" name="cancel" value="Cancel"  id="cancel">
+					</td>
+				</tr>
+			</table>
+		<% end %>
+	<% end %>		
+</div>
+

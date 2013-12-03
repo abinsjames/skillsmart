@@ -1,0 +1,54 @@
+<div>
+	<% unless(@cntArray.blank?)%>	
+		<table>
+			<tr>	
+				<td>
+					<div class ="fontHeading " ><h1>Jobs Applied For</h1></div>
+					</br>
+					<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+						<tr bgcolor="#edf2f4">
+							<td width ="150">Jobs Applied</td>
+							<td width ="150">Company</td>
+							<td width ="150">Invited For Interview?</td>
+							<td width ="150">Status</td>
+						</tr>
+						<% @cntArray.each do |value| %>	
+							<% @count = @count + 1 %>
+							<tr>
+								<td width ="100"><%= link_to value['job']  , url_for({:controller => 'employee', :action => 'myJobAssessment' , :jobID => value['jobID'].to_s}) %></td>
+								<td width ="100"><%= value['company'].to_s %></td>
+								<td width ="100"><%= value['status'].to_s %></td>
+								<td width ="100"><%= value['closed'].to_s %></td>
+							</tr>
+						<% end %>	
+					</table>
+				</td>
+			</tr>
+		</table>
+	<% end %>
+	
+	<% unless(@watchArray.blank?)%>	
+		<table>
+			<tr>	
+				<td>
+					<div class ="fontHeading " ><h1>Watched Jobs</h1></div>
+					</br>
+					<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+						<tr bgcolor="#edf2f4">
+							<td width ="150">Jobs Watched</td>
+							<td width ="150">Company</td>
+							
+						</tr>
+						<% @watchArray.each do |value| %>	
+							<% @count = @count + 1 %>
+							<tr>
+								<td width ="100"><%= link_to value['job']  , url_for({:controller => 'employee', :action => 'myJobAssessment' , :jobID => value['jobID'].to_s}) %></td>
+								<td width ="100"><%= value['company'].to_s %></td>
+							</tr>
+						<% end %>	
+					</table>
+				</td>
+			</tr>
+		</table>
+	<% end %>		
+</div>

@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.css" />
+<script src="/assets/javascripts/jquery-1.9.1.js"></script>
+<script src="/assets/javascripts/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.min.css" />
+
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+
+<title>Employee</title>
+<table width="90%" border="0" cellpadding="0" cellspacing="0" align ="center" >
+
+	<tr>
+		<td><p><div class = "textfont">Click on the <%= link_to "Add", {:controller => "employee", :action => "myWorkHistoryPopup"},  :onclick=>"window.open(this.href,'myEducationPopup', 'height=450,width=530,top=250,left=600' ); return false;" %> button to add your Educational Details</div></p></td>
+	</tr>
+	
+	<tr>
+		<td>
+			<%= form_tag(:action => "myWorkDashboard") do  %>	
+				<%= render 'formMyWorkHistory' %>
+			<%end%>
+		</td>
+	</tr>
+</table>

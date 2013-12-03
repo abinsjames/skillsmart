@@ -1,0 +1,21 @@
+
+<div class = "textfont">
+	<div style="text-align:left;">
+		<table>
+			<tr>	
+				 <td>Resume:</td>
+				 <td align="left">  <%= file_field_tag 'upload[file]' %></td>
+			</tr>				
+			<tr>
+				<td colspan="2" align="left">
+					<ul style="float:left;list-style:none;margin-left:-40px;">
+						<li style="float:left;list-style:none;"><button type="button">Add</button></li>
+						<li style="float:left;list-style:none;margin-top:-20px;"><%= submit_tag "Cancel", :onclick => "window.close()"  %></li>
+					<ul>
+				 </td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+

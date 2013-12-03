@@ -1,0 +1,126 @@
+<style>
+	.list 
+	{
+		 background:none!important;
+		 border:none; 
+		 padding:0!important;
+		
+		 /*optional*/
+		 font-family:arial,sans-serif; /*input has OS specific font-family*/
+		 color:#F47B2F;
+		 text-align: left;
+		 text-decoration:none;
+	}
+
+	
+	.outer_container
+	{
+		margin:10px;
+	}
+	
+	select { width:200px; 		
+	    border: 1px solid #D1D3D5;
+	    border-radius: 2px 2px 2px 2px;
+	    color: #6A747C;
+	    font-family: 'Questrial', sans-serif;
+	    font-size: 15px;
+	    padding: 10px;
+	}
+	
+</style>
+
+
+<script>
+	$(document).ready(function(){
+		$("#mydiv").load("myskillsForAddMyskill")
+		$('.drop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/popSecond', 
+				  data: {'id' : $('.drop').val()},
+				  success: function(data) 
+				  {
+						   $('.drops').empty();
+						   $('.drops').append( $('<option value= "">Select Speciality</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('.drops').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.drops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/PopThird', 
+				  data: {'id' : $('.drops').val()},
+				  success: function(data) 
+				  {
+						   $('#txt').empty();	
+						   $('#txt').append('click checkbox to add your Skill');
+						   $('.my').empty();
+						   $.each(data,function(i, v) {
+						   $('.my').append( $('<div><span>-</span><input id="chk_'+data[i][0]+'" type="checkbox" onchange="validate(\''+data[i][0]+'\')" name="skill" class = "boox" value="'+ data[i][0] +'" /><span >'+data[i][1] +'</span></div>'));
+						   
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+
+<script>
+	function validate(val)		  
+	{	
+		var chkId="#chk_"+val
+		if($(chkId).is(':checked'))
+		{
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/jobseeker/addAskill', 
+					  data: {'id' : val},
+					  success: function(data) 
+					  {
+							$("#mydiv").load("myskillsForAddMyskill")  
+					  } 
+				  });
+		}
+	}
+</script>
+<div class="outer_container">
+	<div class = "textfont" style="width:38%;float:left;">
+		<div style="width:100%;">
+			<table  width="500px">
+				<tr>
+					<td width="200px">
+						please select your category
+					</td>
+					<td width="300px">
+						<%= select_tag "sel_group", options_for_select(@skill) ,{:class => "drop"} %>
+					</td>
+				</tr>
+				<tr>
+					<td width="200px">
+						please select your Speciality
+					</td>
+					<td width="300px">
+						<%= select_tag "sel_group1", options_for_select(@subskill), {:id => "secDrop" , :class => "drops"} %>
+					</td>
+				</tr>							
+			</table>
+		</div>
+		<div style="width:100%;">
+			<span id ="txt"></span>
+			<div class="my" style="align:center; width:138%;"></div>
+		</div>		
+	</div>
+	<div id ="mydiv" style="width:46%;float:right;"></div>	
+</div>

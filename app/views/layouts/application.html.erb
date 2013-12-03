@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<!-- CONTAINER -->
+<div id="internal" class="container">
+
+	<!-- HEADER -->
+	<div id="wrapHeader" class="clearfix">
+		<div id="header">
+			<div id="logo">
+				<a href='/home/homePage'>
+					<img src="/images/logo.png" />
+				</a>
+			</div>
+			<div id="utilityMenu">
+				<ul class="menu">
+					<li id="login">
+						<a href='/home/employerLogin'>Login</a>
+					</li>
+					<li id="createProfile">
+						<a href='/jobseeker/addEmployee'>Create Profile</a>
+					</li>
+					<li>
+						<a href="http://www.skillsmart.us/Skillsmart_overview.pdf">About SkillSmart</a>
+					</li>
+					<li id="signout">
+						<a href='/home/signout'>Signout</a>
+					</li>
+			</div>
+		</div>
+	</div>
+	<!-- END HEADER -->
+		
+		<%= yield %>
+		
+<!-- FOOTER -->
+	<div id="wrapFooter" class="clearfix">
+		<div id="footer" class="clearfix">
+			<div class="footerLeft">
+				<ul class="menu">
+					<li>
+						<a href="#">Terms of Use</a>
+					</li>
+					<li>
+						<a href="#">Privacy Policy</a>
+					</li>
+					<li>
+						<a href="http://www.skillsmart.us/Skillsmart_overview.pdf">About Us</a>
+					</li>
+					<li>
+						<a href="#">Contact</a>
+					</li>
+				</ul>
+			</div>
+			<div class="footerRight">
+				<div class="social">
+					<a target="_blank" href="#"><img src="/images/facebook.png" /></a>
+					<a target="_blank" href="https://twitter.com/SkillSmartUS"><img src="/images/twitter.png" /></a>
+					<a target="_blank" href="http://www.linkedin.com/company/skillsmart"><img src="/images/linkedin.png" /></a>
+					<a target="_blank" href="#"><img src="/images/google+.png" /></a>
+				</div>
+			</div>
+		</div>
+		<div class="footerCopyright">
+			<p>&copy; Copyright 2013, SkillSmart. All rights reserved.</p>
+		</div>
+	</div>
+	<!-- END FOOTER -->
+
+</div>
+<!-- END CONTAINER -->		
+
+</body>
+</html>

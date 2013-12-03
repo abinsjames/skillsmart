@@ -1,0 +1,88 @@
+.textfont		{
+			
+			font-family: 'Segoe UI';
+			font-size:13px;
+			
+		 }
+
+.fontMyJobs	{
+			font: 11px/15px Arial
+		 }
+
+.fontMyJobsTitle	{
+			font: 16px/15px Arial
+		 }
+
+.fontMyJobsComp	{
+			font: 16px/15px Arial
+		 }
+
+
+.linkStyle		{
+			font-family: 'Segoe UI';
+			margin-left:15%;
+			color:#0000FF;
+			text-decoration: none;
+			font-size:16px;
+		}
+		
+.signout{
+			margin-left:5%;
+			color:#0000FF;
+			text-decoration: none;
+			font-size:16px;
+		}		
+
+.fontHeading  	{
+			color: #0F7DC1;
+			font-family: Segoe UI;
+			font-size:16px;
+	    	 }
+
+
+.buttonStyle {
+	-moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fc4C02), color-stop(1, #FC4C02) );
+	background:-moz-linear-gradient( center top, #ffc477 5%, #FC4C02 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#FC4C02');
+	background-color:#ffc477;
+	-webkit-border-top-left-radius:8px;
+	-moz-border-radius-topleft:8px;
+	border-top-left-radius:8px;
+	-webkit-border-top-right-radius:8px;
+	-moz-border-radius-topright:8px;
+	border-top-right-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+	-moz-border-radius-bottomright:8px;
+	border-bottom-right-radius:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-moz-border-radius-bottomleft:8px;
+	border-bottom-left-radius:8px;
+	text-indent:0;
+	border:2px solid #eeb44f;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:30px;
+	line-height:30px;
+	width:119px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #cc9f52;
+}
+.buttonStyle:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #FC4C02), color-stop(1, #ffc477) );
+	background:-moz-linear-gradient( center top, #FC4C02 5%, #ffc477 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#', endColorstr='#ffc477');
+	background-color:#FC4C02;
+}
+.buttonStyle:active {
+	position:relative;
+	top:1px;
+}		
+

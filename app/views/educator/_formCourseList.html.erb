@@ -1,0 +1,59 @@
+<div>
+	<table align ="center">
+		<% unless(@institutionDetails.nil?)%>
+			<% @institutionDetails.each do |value| %>
+				<tr>
+					<td>Company Name: </td><td><%= link_to value['instituteName']  , url_for({:controller => 'educator', :action => 'editInstitution' , :insID => value['instituteID'].to_s}) %> <td>
+				</tr>
+				<tr>
+					<td>Location:</td><td> <%= value['instituteCity'] %>, <%= value['instituteState'] %> <td>
+				</tr>
+			<% end %>	
+		 <% end %>	
+		 <% unless(@courseListArray.nil?)%>
+			<tr width ="100%">
+				<td width ="100%">
+					<table>
+						<tr>
+							<td>
+								<table>
+									<tr align="center" valign="middle"  bgcolor="#edf2f4">							
+										<th>Name</th>	 
+										<th>Date</th>
+										<th>Timings</th>																			
+										<th># of students</th>									
+									</tr>
+									 <% @courseListArray.each do |value| %>
+										<tr>
+											<td><%= link_to value['title']  , url_for({:controller => 'educator', :action => 'editCourse' , :courseID => value['courseID'].to_s }) %></td>										
+											<td><%= value['courseDate'].to_s %></td>
+											<td><%= value['courseMeet'].to_s %></td>
+											<td><%= value['numberStudent'].to_s %></td>
+										</tr>
+									<% end %>
+									<tr>
+										<td>
+											<input type="submit" value="Add Course" name="add" id="add" >
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		<% else %>
+			<tr>
+				<td style= "color:red"><% unless @error.blank? %><%= @error %><% else %>No Employee Found!<%end%></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="Add user" name="add" id="add" >
+				</td>
+			</tr>
+		<% end %>		
+	</table>
+</div>
+	
+			
+

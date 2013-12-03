@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<style>
+		html, body 
+		{
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#map-canvas 
+		{
+			height: 100%;
+			width: 50%;
+		}
+		#content-pane 
+		{
+			float:right;
+			width:48%;
+			padding-left: 2%;
+		}
+		#outputDiv 
+		{
+			font-size: 11px;
+		}
+	</style>
+	<script>
+		var map;
+		var geocoder;
+		var bounds = new google.maps.LatLngBounds();
+		var markersArray = [];
+
+		var dist			 = 		new Array();
+		function initialize() 
+		{
+			
+			map = new google.maps.Map(document.getElementById('map-canvas'), opts);
+			geocoder = new google.maps.Geocoder();
+		}
+
+		function calculateDistances() 
+		{
+			var service 		 = 		new google.maps.DistanceMatrixService();
+			var org 			 = 		document.getElementById('address_input');
+			var origin			 = 		org.value;
+			var dest			 = 		new Array();
+			
+			<% @zip.each do |v| %>
+						var dta = <%= v %>
+						var dt= dta.toString()
+						dest.push(dt)	
+					<% end %>	
+			
+			for (var i=0;i<2;i++)	
+			{	
+				var destn			 = 		new Array();
+				for (var j=0;j<23;j++)	
+				{
+					destn.push(dest[i*10 + j]);
+				}	
+				
+				service.getDistanceMatrix(
+					{
+					  origins: [origin],
+					  destinations: destn,
+					  travelMode: google.maps.TravelMode.DRIVING,
+					  unitSystem: google.maps.UnitSystem.METRIC,
+					  avoidHighways: false,
+					  avoidTolls: false
+					}, callback);
+					
+			}		
+					
+		}
+
+		function callback(response, status) 
+		{
+			if (status != google.maps.DistanceMatrixStatus.OK) 
+			{
+				alert('Error was: ' + status);
+			} 
+			else 
+			{
+				var origins = response.originAddresses;
+				var destinations = response.destinationAddresses;
+				alert(destinations);
+				var outputDiv = document.getElementById('outputDiv');
+				outputDiv.innerHTML = '';
+				
+				
+				for (var i = 0; i < origins.length; i++) 
+				{
+					var results = response.rows[i].elements;
+					for (var j = 0; j < results.length; j++) 
+						{
+							
+							var d	=	parseFloat(results[j].distance.text)
+							dist.push(d);
+						}
+				}
+				alert(dist)
+				
+			}
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <title>Employee</title>
+	</head>
+	<body>
+		<div id="content-pane">
+			<div id="inputs">
+				<pre>
+					<form>
+						<input type="text" name="address1" value="Address" id="address_input" size="40" />
+						<button type="button" onclick="calculateDistances();">check</button>
+					</form>
+				</pre>
+
+			</div>
+			<div id="outputDiv"></div>
+		</div>
+		<div id="map-canvas" style="visibility:hidden"></div>
+	</body>
+</html>

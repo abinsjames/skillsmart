@@ -1,0 +1,43 @@
+<title>Employee</title>
+<div id="container" style="width:100%" class ="textfont">
+	<div id="header" style="height:50px;margin-left: 3%;">
+		<%= link_to image_tag('/images/logo.jpg') , url_for({:controller => 'home', :action => 'homePage'}) %> 
+	</div>
+		<h1 style="margin-bottom:0;">SKILL SMART</h1></div>
+	<div id="menu" style="height:500px;width: 200px;float:left;">
+		<br>
+		<p style ="margin-left:20px;">Focus</P>
+		<%= link_to image_tag('/images/job_openings.jpg') , url_for({:controller => 'employee', :action => 'myJobFinder'}) %> <br> 
+			<div id="menu" style="float:right;">
+				<%= link_to image_tag('/images/skills.jpg') , url_for({:controller => 'employee', :action => 'myskillsPortfolio'})%><br>
+				<%= link_to image_tag('/images/workex.jpg') , url_for({:controller => 'employee', :action => 'myWorkHistory'})  %><br>
+			</div>
+		<%= link_to image_tag('/images/jobtracking.png')  %><br>
+		<%= link_to image_tag('/images/portfolio.gif') , url_for({:controller => 'employee', :action => 'portfolioNew'}) %><br>
+			<div id="menu" style="float:right;">
+				<%= link_to image_tag('/images/education.jpg') , url_for({:controller => 'employee', :action => 'myEducation'})%><br>
+				<%= link_to image_tag('/images/interviews.png') , url_for({:controller => 'employee', :action => 'myResume'})   %><br>
+			</div>
+		<%= link_to image_tag('/images/maindemo.jpg'), url_for({:controller => 'employee', :action => 'dashboard'})   %><br>
+	</div>
+		<table width="70%" border="0" cellpadding="0" cellspacing="0" align ="center" >
+			
+			<tr>
+				<td><div style=" margin-left:200px;"><strong><h1>Portfolio</h1></strong></div></td>
+			</tr>
+			<tr>
+				<td><div class = "textfont"><p style=" margin-left:250px;">Portfolio is used to inculde your information<br>
+				In this section there are 4 sub section<br><br>	&nbsp&nbsp&nbsp&nbsp1)<b><%= link_to "My Skills", {:controller => "employee", :action => "myskillsPortfolio"} %></b> for adding your technical skills<br>
+																		&nbsp&nbsp&nbsp&nbsp2)<b><%= link_to "My Work History", {:controller => "employee", :action => "myWorkHistory"} %></b> for adding the work experience details<br>
+																		&nbsp&nbsp&nbsp&nbsp3)<b><%= link_to "My Education", {:controller => "employee", :action => "myEducation"} %></b> for adding your educational details<br>
+																		&nbsp&nbsp&nbsp&nbsp4)<b><%= link_to "My Resume", {:controller => "employee", :action => "myResume"} %></b> for adding your resume</p></div></td>
+			</tr>
+		
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</table>
+	</div>	
+</div>

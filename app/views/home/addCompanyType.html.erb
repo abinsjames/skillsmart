@@ -1,0 +1,20 @@
+<title>Employer</title>
+
+<table align ="center">
+	<tr>
+		<td class="errorMessage"></td>
+	</tr>
+	<tr>
+		<td class="pageHead"><div style="float:left;"><strong>Add Company Types</strong></div></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>
+			<%= form_tag(:action => "addCompanyType") do  %>	
+				<%= render 'formAddCompanyType' %>
+			<%end%>
+		</td>
+	</tr>
+</table>

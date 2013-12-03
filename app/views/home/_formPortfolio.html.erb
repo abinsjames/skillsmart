@@ -1,0 +1,82 @@
+<script type="text/javascript">
+{
+	function checkUserName()
+	{
+		var title 		 	 = 		document.getElementById('opt');
+		var titlelen 		 = 		title.value;
+		var status = null;
+		if (window.XMLHttpRequest)
+			 {// code for IE7+, Firefox, Chrome, Opera, Safari
+			 	 xmlhttp=new XMLHttpRequest();
+			  }
+		else
+			 {// code for IE6, IE5
+				 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+		xmlhttp.onreadystatechange=function()
+			  {
+				  
+				 if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			      	{
+						status = xmlhttp.responseText;
+						//alert("Status:"+status) ;
+					 	if(status == 1){						
+							
+							
+
+							
+						}else{					  		
+					  		
+							document.getElementById('userName').innerHTML = "<img src=images/tick.jpg></img>";
+						return(false);
+						  	}
+				    }
+			  }
+			xmlhttp.open("GET","/home/portfolio",true);
+
+		
+			
+			xmlhttp.send();	
+		}
+	
+}
+</script>
+
+<style>
+.margin
+{
+	margin-left:80px;
+}
+</style>
+
+<div class = "textfont">
+	<table align ="center" class ="serifa" >
+		 <tr>
+			<td>Secret Cleareance</td> <td><select id = "opt" name ="opt" onchange="javascript:return checkUserName();"> >
+															  <option value="required">Required</option>
+															  <option value="prefered">Prefered</option>
+															  <option value="acceptable">Acceptable</option>
+														</select> 
+													</td>
+		 </tr>
+		 
+		 <tr>	
+				<td>
+				</td>
+				
+				<td>
+					<% if !@hiringAuthority.nil? %>
+						<%= select_tag "sel_group", options_for_select(@hiringAuthority)%>
+					<% end %>	
+				</td>	
+		 </tr>
+		 
+		 <tr>
+			<td>
+				<input type="submit" name="add" value="Add" id="add">
+			</td>
+		 </tr>
+	</table>
+	
+
+</div>

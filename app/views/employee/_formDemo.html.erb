@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+	<style>
+		.button 
+		{
+			 background:none!important;
+			 border:none; 
+			 padding:0!important;
+			
+			 /*optional*/
+			 font-family:arial,sans-serif; /*input has OS specific font-family*/
+			 color:#0000FF;
+			 text-decoration:underline;
+			 cursor:pointer;
+		}
+		.textbox_blur
+		{
+			background:transparent!important;
+			width:100px;
+			border:none; 
+		}
+		.textbox_active
+		{
+			background:#ffffff!important;
+			border:1px solid #0e0e0e; 
+			width:100px;
+		}
+	</style>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<style>
+		html, body 
+		{
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#map-canvas 
+		{
+			height: 100%;
+			width: 50%;
+		}
+		#content-pane 
+		{
+			float:right;
+			width:48%;
+			padding-left: 2%;
+		}
+		#outputDiv 
+		{
+			font-size: 11px;
+		}
+	</style>
+	<script>
+		var map;
+		var geocoder;
+		var bounds = new google.maps.LatLngBounds();
+		var markersArray = [];
+
+
+		function initialize() 
+		{
+			
+			map = new google.maps.Map(document.getElementById('map-canvas'), opts);
+			geocoder = new google.maps.Geocoder();
+		}
+
+		function calculateDistances() 
+		{
+			var service = new google.maps.DistanceMatrixService();
+			var org 			 = 		document.getElementById('address_input');
+			var origin			 = 		org.value;
+			var dest			 = 		new Array();
+			<% @zip.each do |v| %>
+						var dta = <%= v %>
+						var dt= dta.toString()
+						dest.push(dt)	
+					<% end %>	
+			service.getDistanceMatrix(
+				{
+				  origins: [origin],
+				  destinations: dest,
+				  travelMode: google.maps.TravelMode.DRIVING,
+				  unitSystem: google.maps.UnitSystem.METRIC,
+				  avoidHighways: false,
+				  avoidTolls: false
+				}, callback);
+		}
+
+		function callback(response, status) 
+		{
+			if (status != google.maps.DistanceMatrixStatus.OK) 
+			{
+				alert('Error was: ' + status);
+			} 
+			else 
+			{
+				var origins = response.originAddresses;
+				var destinations = response.destinationAddresses;
+				var outputDiv = document.getElementById('outputDiv');
+				outputDiv.innerHTML = '';
+				var dist			 = 		new Array();
+				
+				for (var i = 0; i < origins.length; i++) 
+				{
+					var results = response.rows[i].elements;
+					for (var j = 0; j < results.length; j++) 
+						{
+							outputDiv.innerHTML += origins[i] + ' to ' + destinations[j]
+							+ ': ' + results[j].distance.text + ' in '
+							+ results[j].duration.text + '<br>';
+							var d	=	parseFloat(results[j].distance.text);
+							d = d * 0.621;
+							dist.push(d);
+						}
+				}
+				alert(dist)
+				var myDist = JSON.stringify(dist);
+				$.ajax({ 
+				  type: 'GET', 
+				  url: '/employee/distance', 
+				  data: {'distance' : myDist},
+				  success: function(data) 
+				  {
+						alert(data);
+				  }
+				  
+			  });
+			}
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<style>
+	table.serifa{font-family:Arial,Helvetica,sans-serif;}
+</style>
+
+<meta charset="utf-8" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		var textValue=$('#address_input').val();
+		textValue=trimAll(textValue);
+	
+		if((textValue.length)==0)
+		{
+			$( "#address_input" ).val($( "#address_input" ).attr("title"));
+		}});
+		
+	$(function() 
+	{
+		$( ".slider-range-min" ).slider(
+			{
+				range: "min",
+				value: 1,
+				min: 1,
+				max: 100,
+				slide: function( event, ui ) 
+				{
+					$( ".amount" ).val(  ui.value );
+				}
+			});
+		$( ".amount" ).val( $( ".slider-range-min" ).slider( "value" ) );
+		
+
+	});
+	
+	function onTextFocus()
+	{
+		$('#address_input').removeClass('textbox_blur');
+		$('#address_input').addClass('textbox_active');
+		
+		var textValue1=$('#address_input').val();
+		textValue1=trimAll(textValue1);
+	
+		var titleValue=$('#address_input').attr("title");
+		titleValue=trimAll(titleValue);
+		
+		if(titleValue==textValue1)
+		{
+			$( "#address_input" ).val("");
+		}
+
+	}
+	
+	function onTextBlur()
+	{
+		$('#address_input').removeClass('textbox_active');
+		$('#address_input').addClass('textbox_blur');
+		
+		var textValue1=$('#address_input').val();
+		
+		textValue1=trimAll(textValue1);
+	
+		if((textValue1.length)==0)
+		{
+			$( "#address_input" ).val($( "#address_input" ).attr("title"));
+		}
+		
+	}
+	
+	function trimAll(sString)
+	{
+		while (sString.substring(0,1) == ' ')
+		{
+			sString = sString.substring(1, sString.length);
+		}
+		while (sString.substring(sString.length-1, sString.length) == ' ')
+		{
+			sString = sString.substring(0,sString.length-1);
+		}
+		return sString;
+	} 
+</script>
+<style>
+.numberCircle {
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    border-radius: 999px;
+    behavior: url(PIE.htc);
+
+    width: 26px;
+    height: 26px;
+    padding: 4px;
+
+    background: #fff;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+
+    font: 16px Arial, sans-serif
+}
+</style>
+
+<style>
+
+	.outer_container
+	{
+		margin:10px;
+	}
+	
+</style>
+
+<script>
+	function validate()		  
+	{	
+		var counter=0;
+		var filterValue=[];		
+		$("input[name='filter1']:checked").each(
+			function(index,value) { 
+				filterValue[parseInt(counter)]=value.value;
+				counter=parseInt(counter)+1;	
+		});	
+		
+		$.ajax({ 
+					  type: 'GET', 
+					  url: '/employee/filter', 
+					  data: {'filter' : filterValue},
+					  success: function(data) 
+					  {
+							list	=	data.listJobs
+							$("#joblist").empty();
+							$("#jobname").empty();
+							$(".first").empty();
+							$.each(list, function(i,item) {
+								$('#joblist').append($('<tr><td class ="fontMyJobsTitle"><a href=/employee/myJobAssessment?jobID=' + item.jobID + '>' + item.JobDesc + '</a></td></tr>'));
+								$('#joblist').append($('<tr><td>Company Name :-' + item.compName + ' , ' + item.location + '</td></tr>'));
+								$('#joblist').append($('<tr><td>' + item.jobDetails + '</td></tr>'));
+								$('#joblist').append($('<tr><td>No: of positions :-' + item.noOpen + '</td></tr>'));
+								$('#joblist').append($('<tr><td>No: of Days Left :-' + item.noDays + '</td></tr>'));
+								$('#joblist').append($('<tr><td>Skills Required:-' + item.skillName + '</td></tr>'));
+							});		
+							
+					  } 
+				  });
+	}
+</script>
+
+<div class="outer_container">
+	<div class = "fontMyJobs" style="width:10%;">
+	<% unless(@cntArray.nil?)%>	
+		<table align ="left" border ="0">
+			<tr>
+				<td width ="50" style="font-size:15px">
+					Salary					
+				</td>
+			</tr>
+			<tr>
+				<td width ="50">
+					<input type="checkbox"  name="filter1" value=1 onchange="validate();">20-40k
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox"  name="filter1" value=2 onchange="validate();">40-60k
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox"  name="filter1" value=3 onchange="validate();">60-80k
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox"  name="filter1" value=4 onchange="validate();">80-100k
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox"  name="filter1" value=5 onchange="validate();">100-120k
+				</td>
+			</tr>
+	
+			<tr>
+				<td>
+					...................................................
+				</td>	
+			</tr>
+			<tr>
+				<td width ="50" style="font-size:15px">
+					Company Type
+				</td>
+			</tr>
+			
+			<tr>
+				<td align ="left" width ="30">
+					<input type="checkbox"  name="filter1" value=6 onchange="validate();">HealthCare
+				</td>	
+			</tr>
+			<tr>		
+				<td align ="left" width ="30">
+					<input type="checkbox"  name="filter1" value=7 onchange="validate();">Manufacturing
+				</td>
+			</tr>
+			<tr>	
+				<td align ="left" width ="30">
+					<input type="checkbox"  name="filter1" value=8 onchange="validate();">Information Technology
+				</td>
+			</tr>
+			<tr>	
+				<td align ="left" width ="30">
+					<input type="checkbox"  name="filter1" value=9 onchange="validate();">Project Management
+				</td>
+			</tr>
+			<tr>	
+				<td align ="left" width ="30">
+					<input type="checkbox" name="filter1" value=10 onchange="validate();">Construction
+				</td>
+			</tr>
+			<tr>
+				<td>
+					...................................................
+				</td>	
+			</tr>
+			<tr>
+				<td width ="50" style="font-size:15px">
+					Distance
+				</td>
+			</tr>
+			
+			<tr>	
+				<td width ="50">
+					<input type="checkbox" name="filter1" value=11 onchange="validate();">5mi
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox" name="filter1" value=12 onchange="validate();">10mi
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox" name="filter1" value=13 onchange="validate();">15mi
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox" name="filter1" value=14 onchange="validate();">20mi
+				</td>
+			</tr>
+			<tr>	
+				<td width ="50">
+					<input type="checkbox" name="filter1" value=15 onchange="validate();">25mi
+				</td>
+			</tr>
+			<tr> 
+				<td width ="50">
+					<div>
+						From:<input type="text" name="address1" title="my location" value="" id="address_input" class="textbox_blur" onfocus="javascript:onTextFocus();" onblur="javascript:onTextBlur();" >
+						<button type="button" onclick="calculateDistances();" style="float:right;">check</button>
+					</div>
+					<div id="outputDiv" style="visibility:hidden"></div>
+					</div>
+					<div id="map-canvas" style="visibility:hidden"></div> 
+				</td>
+			</tr>
+		</table>	
+		<% end %>
+	</div>
+	<div STYLE="margin-left: 40%">
+		<table align ="center" width="70%">
+			<div id ="joblist">
+			</div>
+		</table>
+	</div>
+	
+	<div class ="first" STYLE="margin-left: 30%">
+		<table align ="center" width="70%">
+			<% unless(@cntArray.blank?)%>
+				<% @cntArray.each do |value| %>
+					<tr><td class ="fontMyJobsTitle"><a href=/employee/myJobAssessment?jobID=<%=value['jobID'] %> > <%=value['JobDesc'] %> </a></td></tr>
+					<tr><td>Company Name :-<%=value['compName'] %> , <%=value['location'] %></td></tr
+					<tr><td><%=value['jobDetails'] %></td></tr>
+					<tr><td>No: of positions :-<%=value['noOpen'] %></td></tr>
+					<tr><td>Job posted :-<%=value['noDays'] %> days ago</td></tr>
+					<tr><td>Skills Required:-<%=value['skillName'] %></td></tr>
+				<% end %>
+			<% end %>		
+		</table>
+	</div>
+</div>

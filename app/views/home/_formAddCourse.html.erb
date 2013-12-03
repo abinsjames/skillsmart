@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<script>
+	$(function() {
+		$( "#datepickers" ).datepicker();
+	});
+</script>
+
+<script>
+	function validateForm()
+	{
+
+		var course 			 	 = 		document.getElementById('course');
+		var seat			 	 = 		document.getElementById('seat');
+		var StartDate		 	 = 		document.getElementById('datepickers');
+				
+
+
+		var courselen 		 	 = 		course.value.length;
+		var seatlen		 	 	 = 		seat.value.length;
+		var StartDatelen 	 	 = 		StartDate.value.length;
+		
+		if (courselen == 0 || seatlen == 0 || StartDatelen == 0)
+		{
+			alert("skill field is empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+</script>
+
+
+
+
+<script>
+	$(document).ready(function(){
+		$("#mydiv").load("myskillsForAddMyskill")
+		$('.drop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/popSecond', 
+				  data: {'id' : $('.drop').val()},
+				  success: function(data) 
+				  {
+						   $('#secDrop').empty();
+						   $('#secDrop').append( $('<option value= "">Select Speciality</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('#secDrop').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.drops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/PopThird', 
+				  data: {'id' : $('.drops').val()},
+				  success: function(data) 
+				  {
+						   $('#thiDrop').empty();
+						   $('#thiDrop').append( $('<option value= "">Select Skill</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('#thiDrop').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+
+<div class = "textfont">
+	<table width="60%" border="0" cellpadding="0" cellspacing="10">	
+		<tr>
+			<td width="200px">
+				please select your category
+			</td>
+			<td width="300px">
+				<%= select_tag "sel_group", options_for_select(@skill) ,{:class => "drop"} %>
+			</td>
+		</tr>
+		<tr>
+			<td width="200px">
+				please select your Speciality
+			</td>
+			<td width="300px">
+				<%= select_tag "sel_group1", options_for_select(@subskill), {:id => "secDrop" , :class => "drops"} %>
+			</td>
+		</tr>
+		<tr>
+			<td width="200px">
+				please select your Skill
+			</td>
+			<td width="300px">
+				<%= select_tag "sel_group2", options_for_select(@thirdSkill), {:id => "thiDrop" , :class => "dropes"} %>
+			</td>
+		</tr>
+		
+		
+		<tr>
+			<td width = "270">
+				Category
+			</td>
+			<td>
+				<%= select_tag "institution", options_for_select(@institute)%>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Course Title  
+			</td>
+			<td>
+				<input type="text" name="course" id="course"></td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Start Date
+			</td>
+			<td>
+				<input type="text"  value="" name="date" id="date">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Cost
+			</td>
+			<td>
+				<input type="text" name="cost" id="cost"></td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Time Required
+			</td>
+			<td>
+				<input type="text" name="time" id="time"></td>
+			</td>
+		</tr>			
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input type="submit" name="add" value="Add" id="add">
+				<input type="submit" name="cancel" value="Cancel" id="cancel">
+			 </td>
+		</tr>
+	<table>
+</div>

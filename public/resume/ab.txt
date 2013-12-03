@@ -1,0 +1,8 @@
+$('#skills').append($('<table  border =0 cellpadding="5"><tr  bgcolor="#4D94FF"><td width = 135>Skill</td><td>Proficency</td><td>Importance</td> <td>Required</td></tr>'));
+			$('#skill').append($('<tr>'));
+			$('#skill').append($('<td><input type ="text" value ="javascript"></td>'));
+			$('#skill').append($('<td><input type ="text" value ="10" size="5" ></td>'));
+			$('#skill').append($('<td><input type ="text" value ="10" size="5" ></td>'));
+			$('#skill').append($('<td><select><option value="1">YES</option><option value="0">NO</option></select></td>'));
+			$('#skill').append($('</tr>'));
+			$('#skills').append($('</table>'));

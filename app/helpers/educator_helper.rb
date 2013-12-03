@@ -1,0 +1,2 @@
+module EducatorHelper
+end

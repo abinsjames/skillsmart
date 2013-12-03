@@ -1,0 +1,54 @@
+<script>
+	function validateForm()
+	{
+
+		var skill 			 	 = 		document.getElementById('certificate');
+		var description		 	 = 		document.getElementById('description');
+
+
+		var skilllen 		 	 = 		skill.value.length;
+		var descriptionlen 	 	 = 		description.value.length;
+		
+		if (skilllen == 0 || descriptionlen == 0)
+		{
+			alert("some field is empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+</script>
+
+<div class = "textfont">
+	<div style="text-align:center;">
+		<table align="center">
+			<tr>
+				<td align ="left">Certificate/Credentials*</td>
+				<td><input type="text" size="48" value="" name="certificate" id="certificate"></td>
+			<tr>
+			<tr>
+				<td align ="left">Description*</td>
+				<td><textarea name="description"  id="description"  style="width: 414px; height: 100px;"></textarea></td>
+			<tr>
+			<tr>
+				<td><input type="hidden" value="<%= @id %>" name="id" id="add"></td>
+			</tr>		
+			<tr>
+				<tr>
+				<td colspan="2">
+					<ul style="float:left;list-style:none;margin-left:-40px;">
+						<li style="float:left;list-style:none;"><button type="button">Add</button></li>
+						<li style="float:left;list-style:none;margin-top:-20px;"><%= submit_tag "Cancel", :onclick => "window.close()"  %></li>
+					<ul>
+				 </td>
+			</tr>
+			</tr>
+		</table>
+	</div>
+</div>
+
+

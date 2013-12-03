@@ -1,0 +1,338 @@
+
+
+<script>
+	$(document).ready(function(){
+		$("#result").hide();
+		$('.list').click(function() 
+		{	
+			var ab = $(this).attr("value");
+			var skillName = $(this).text();
+			
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/jQueryaccessMyskill',
+				  data: {'id' : ab},
+				  success: function(data) 
+				  {
+						$("#result").show();
+						prof	=	data.prof
+						exp		=	data.exp
+						cert	=	data.certificate
+						expl	=	data.example
+						refr	=	data.refer
+						dta		=	data.id
+						
+						$("#skillname").empty();	
+						$('#skillname').append(skillName);
+							
+						$("#cert").empty();	
+						$.each(cert, function(i,item) {
+								$('#cert').append($('<tr>'));
+								$('#cert').append($('<td width ="300">').append(item.certificate));
+								$('#cert').append($('</td>'));
+								$('#cert').append($('<td><%= link_to 'Delete' %></td>'));
+								$('#cert').append($('</tr>'));
+								$('#cert').append($('<tr>'));
+								$('#cert').append($('<td width ="300">'));
+								$('#cert').append(item.description);
+								$('#cert').append($('</td>'));
+								$('#cert').append($('</tr>'));
+								$('#cert').append($('<tr>'));
+								$('#cert').append($('<td>&nbsp</td>'));
+								$('#cert').append($('</tr>'));
+								
+							});		
+							
+						$("#eg").empty();	
+						$.each(expl, function(i,item) {
+								$('#eg').append($('<tr>'));
+								$('#eg').append($('<td width ="300">').append(item.example));
+								$('#eg').append($('</td>'));
+								$('#eg').append($('<td><%= link_to 'Delete' %></td>'));
+								$('#eg').append($('</tr>'));
+								$('#eg').append($('<tr>'));
+								$('#eg').append($('<td width ="300">'));
+								$('#eg').append(item.description);
+								$('#eg').append($('</td>'));
+								$('#eg').append($('</tr>'));
+								$('#eg').append($('<tr>'));
+								$('#eg').append($('<td>&nbsp</td>'));
+								$('#eg').append($('</tr>'));
+								
+							});		
+
+						$("#ref").empty();
+						$.each(refr, function(i,item) {
+								$('#ref').append($('<tr>'));
+								$('#ref').append($('<td width ="300">').append(item.reference));
+								$('#ref').append($('</td>'));
+								$('#ref').append($('<td><%= link_to 'Delete' %></td>'));
+								$('#ref').append($('</tr>'));
+								$('#ref').append($('<tr>'));
+								$('#ref').append($('<td width ="300">'));
+								$('#ref').append(item.description);
+								$('#ref').append($('</td>'));
+								$('#ref').append($('</tr>'));
+								$('#ref').append($('<tr>'));
+								$('#ref').append($('<td>&nbsp</td>'));
+								$('#ref').append($('</tr>'));
+								
+							});																
+
+						$(function() 
+						{
+							$( "#slider-range-min" ).slider(
+								{
+									range: "min",
+									value: prof,
+									min: 1,
+									max: 10,
+									slide: function( event, ui ) 
+									{
+										$( "#amount" ).val(  ui.value );
+									}
+								});
+							$( "#amount" ).val( $( "#slider-range-min" ).slider( "value" ) );
+							
+							$( "#slider-min1" ).slider(
+								{
+									range: "min",
+									value: exp,
+									min: 1,
+									max: 10,
+									slide: function( event, ui ) 
+									{
+										$( "#val" ).val(  ui.value );
+									}
+								});
+							$( "#val" ).val( $( "#slider-min1" ).slider( "value" ) );
+						});
+				  } 
+			  });
+		});
+	});	
+</script>
+<div class="outer_container">
+	<div class = "textfont" style="width:40%;float:left;">
+		<table align = "left">	
+			<% unless(@skillName.nil?)%>
+				<tr>
+					<td>
+						<% unless(@b.nil?) %>
+							<table  border="0" cellpadding="0" cellspacing="0" align = "right">
+								
+									
+										<% emp_data  							= 		Skill.find_by_id(@b) %>
+										<% @head								=		emp_data.name %>
+										<% @id									=		emp_data.parentid %>	
+										<% emp									=		Skill.find_by_id(@id) %>		
+										<% @mainhead							=		emp.name %>
+								
+								<tr>	
+									<td align ="left">
+										<div>
+											<div  style="font-size : 170%;float:left;">.</div>
+											<div style="float:left; padding:5px 0 0 5px;"><%= @mainhead.to_s %></div>
+										</div>
+									</td>
+								</tr>	
+								<tr>	
+									<td align ="left">
+										<div style=" margin-left:20px;">
+											- <%= @head.to_s %>
+										</div>	
+									</td>
+								</tr>	
+								<% @skillName.each do |value| %>
+									<% if (@b.to_s == value['parentid'].to_s) %>
+										<tr>
+											<td>
+												<div style=" margin-left:40px;">		
+														<div  style="font-size : 170%;float:left;width:4%;">.</div>
+														<div style="float:left;  padding:5px 0 0 5px;width:85%;"><button class="list" type="button" value="<%= value['portfolioskillid'].to_s  %>"> <%= value['skillname'].to_s  %></button> 
+														</div>												
+												</div> 
+											</td>
+										</tr>
+											
+									<% else %>
+										<% @b = value['parentid'].to_s %>
+										<% emp_da  							= 		Skill.find_by_id(@b) %>
+										<% @head							=		emp_da.name %>
+										<% @id								=		emp_da.parentid %>	
+										<% em								=		Skill.find_by_id(@id) %>		
+										<% @mainheading						=		em.name %>
+										<% if(@mainheading.to_s != @mainhead.to_s) %>
+											<% @mainhead = @mainheading.to_s %>
+											<tr>
+												<td align ="left">			
+													<div>
+														<div  style="font-size : 170%;float:left;">.</div>
+														<div style="float:left; padding:5px 0 0 5px;"><%= @mainhead.to_s %></div>
+													</div>
+												</td>
+											</tr>
+										<% end %>
+										<tr>
+											<td align ="left">	
+												<div style=" margin-left:20px;">		
+													- <%= @head.to_s %> </br>
+												</div>	
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div style=" margin-left:40px;">		
+														<div  style="font-size : 170%;float:left;width:4%;">.</div>
+														<div style="float:left;  padding:5px 0 0 5px;width:85%;"><button class="list" type="button" value="<%= value['portfolioskillid'].to_s  %>"> <%= value['skillname'].to_s  %></button> 
+														</div>												
+												</div> 
+											</td>	
+										</tr>
+									<% end %>	
+								<% end %>
+							</table>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>	
+		</table>
+	</div>
+
+	<div class = "textfont" id = "result" STYLE="margin-left: 40%">
+		<script>
+			$(document).ready(function(){
+				var oldProf = $('#amount').val();
+				var oldExp = $('#val').val();
+				setInterval(function() 
+				{ 
+					var newProf = $('#amount').val(); 
+					
+					if(newProf != oldProf)
+						{
+							oldProf = newProf;
+							$.ajax({ 
+									  type: 'GET', 
+									  url: '/jobseeker/changeProficency',
+									  data: {'proficency' : newProf}
+								   })
+						}	
+						
+					var newExp = $('#val').val();
+					if(newExp != oldExp)
+						{
+							oldExp = newExp;
+							$.ajax({ 
+									  type: 'GET', 
+									  url: '/jobseeker/changeExperience',
+									  data: {'experience' : newExp}
+								   })
+						}		     				     		
+				}, 500);
+			});
+		</script>	
+		
+
+		<div class = "textfont"  STYLE="margin-left: 35%">
+			<table width="100%" align =" center">
+				<tr>
+					<td><div id = "skillname" STYLE="margin-left: 40%"></div></td>
+				</tr>
+				<tr>
+					<td>Proficency:<input type="text" size ="1" id="amount" name="proficency" style="border: 0; color: #FF6600; font-weight: bold;" readonly></td>
+				</tr>
+				<tr>	
+					<td><div id="slider-range-min" style="color: #FF6600;"></div></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>		
+				<tr>
+					<td>Years Experience:<input type="text" size ="1" id="val" name="experience" style="border: 0; color: #FF6600; font-weight: bold;" readonly></td>
+				</tr>
+				<tr>	
+					<td><div id="slider-min1" style="color: #FF6600;"></div></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td  width ="300" style="font-size:15px">Certificate/Credentials:</td>
+					<div id = "certificate">
+						<td><%= link_to "Add" ,{ :controller => "employee", :action => "myCertificates"  } , :onclick=>"window.open(this.href,'myCertificates', 'height=400,width=900,top=250,left=300' ); return false;" %></td>
+					</div>
+				</tr>	
+				<tr>	
+					<td>
+						<table align = "center">
+							<tr>
+								<td>
+									<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+										<tr>
+											<td align="center" valign="middle">
+												<table width="90%" border="0" cellpadding="0" cellspacing="0">
+													<div id ="cert" align ="left"  STYLE="margin-left: 10%">>
+													</div>	
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width ="300" style="font-size:15px">References:</td>
+					<td><%= link_to "Add"  , {:controller => "employee", :action => "myReferences"  } , :onclick=>"window.open(this.href,'myReferences', 'height=400,width=900,top=250,left=300' ); return false;" %></td>
+				</tr>
+				<tr>	
+					<td>		
+						<table align = "center">	
+							<tr>
+								<td>
+									<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+										<tr>
+											<td align="center" valign="middle">
+												<table width="90%" border="0" cellpadding="0" cellspacing="0">
+													<div id ="ref" align ="left"  STYLE="margin-left: 10%">>
+													</div>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>	
+					 </td>
+				</tr>	  	
+				<tr>
+					<td width ="300" style="font-size:15px">Examples:</td>
+					<td><%= link_to "Add"  , {:controller => "employee", :action => "myExamples"} , :onclick=>"window.open(this.href,'myExamples', 'height=400,width=900,top=250,left=300' ); return false;" %></td>
+				</tr>
+				<tr>	
+					<td>
+						<table align = "center">			
+							
+							<tr>
+								<td>
+									<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+										<tr>
+											<td align="center" valign="middle">
+												<table width="90%" border="0" cellpadding="0" cellspacing="0">
+													<div id ="eg" align ="left"  STYLE="margin-left: 10%">>
+													</div>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr> 		
+			</table>	
+		</div>	
+	</div>
+</div>	

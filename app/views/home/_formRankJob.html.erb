@@ -1,0 +1,73 @@
+<script type="text/javascript">
+	function validateForm()
+	 {
+		var title 		 	 = 		document.getElementById('comments');
+		var titlelen 		 = 		title.value.length;
+		
+		if (titlelen == 0)
+			{
+				alert("Some fields are empty");  
+				return false;
+			}
+		else
+			{
+				return true;
+			}
+	 }
+</script>
+
+
+
+
+<div class = "textfont">
+	<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+	<table align ="left">
+		 <tr>
+			<td>Title</td>
+			<td><input type="text" style="height:25px" size="60%" value="<%= @jobName %>" name="title" id="title"></td>
+		 </tr>
+	</table>
+
+	<table align ="left" border =0>
+		<tr>
+			<td width = 50%>
+				<table align ="center" border =0 cellpadding="5" width = 100%> 
+					Job Skills
+					<tr  bgcolor="#edf2f4">
+						<th>Skill</th> 
+						<th>Proficency</th>
+						<th>Importance</th> 
+						<th>Required</th>
+					</tr>
+					<% @cnt_ary.each do |value| %>
+										<% @count = @count + 1 %>
+										<tr>
+											<td><%= value['skillName'].to_s  %></td>
+											<td><input type ="text" value ="<%= value['skillProf']  %>" size="5" id="rank_<%= value['skillID'].to_s  %>" onblur="validateRank('<%= value['skillID'].to_s  %>')" ></td>
+											<td><input type ="text" value ="<%= value['skillImp']  %>" size="5" id="prior_<%= value['skillID'].to_s  %>" onblur="validatePrior('<%= value['skillID'].to_s  %>')" ></td>
+											<td><select class ="downdownbox" id="drp_<%= value['skillID'].to_s  %>" onchange="validateDesOrPri('<%= value['skillID'].to_s  %>')" > <option value="1" <% if(value['required'].to_s == "YES") %> selected <% end %> >YES</option><option value="0" <% if(value['required'].to_s == "NO") %> selected <% end %> >NO</option></select></td>
+										</tr>
+									<% end %>
+				</table>
+			</td>
+			<td  width = 50% valign="baseline">
+				Suggested Skills<input id="tags_1" type="text" class="tags" name="skill"/>
+			</td>	
+		</tr>
+		<tr  width = 50%>
+			<table align ="left" border =0> 
+				<tr>
+					<td>Comments</td>
+				</tr>
+				<tr>
+					<td><textarea name="comments"  id="comments"  style="width: 307px; height: 100px;"></textarea></td>
+				</tr>	
+				<tr>
+					<td align ="left">
+						<input type="submit" name="add" value="Save My Rating" id="add" >
+					</td>	
+				</tr>
+			</table>
+		</tr>
+	</table>
+</div>

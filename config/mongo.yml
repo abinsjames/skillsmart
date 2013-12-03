@@ -1,0 +1,20 @@
+defaults: &defaults
+   host: ds049858.mongolab.com
+   port: 49858
+
+development:
+  <<: *defaults
+  database: heroku_app18458661
+
+test:
+  <<: *defaults
+  database: heroku_app18458661
+
+# set these environment variables on your prod server
+production:
+ 
+  host: ds049858.mongolab.com
+  port: 49858
+  database: heroku_app18458661
+  username: abin
+  password: password007

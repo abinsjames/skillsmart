@@ -1,0 +1,78 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	var name 			= 		document.getElementById('name');
+	var password		= 		document.getElementById('password');
+	var email			= 		document.getElementById('email');
+	var permission  	= 		document.getElementById('permission');
+	var fname			= 		document.getElementById('fname');
+	var lname		  	= 		document.getElementById('lname');
+	
+	var namelen 		= 		name.value.length;
+	var passwordlen 	= 		password.value.length;
+	var emaillen 		= 		email.value.length;
+	var permissionlen 	= 		permission.value.length;
+	var fnamelen 		= 		fname.value.length;
+	var lnamelen 		= 		lname.value.length;
+	
+	var x				=		email.value;
+	var atpos			=		x.indexOf("@");
+	var dotpos			=		x.lastIndexOf(".");
+
+	if (namelen == 0 ||  emaillen == 0 || permissionlen == 0 || passwordlen == 0 || fnamelen == 0 || lnamelen == 0)
+	{
+		alert("Some fields are empty");  
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+    {
+	    alert("Not a valid e-mail address");
+	    return false;
+    }
+}
+</script>
+<div class = "textfont">
+	<table align = "center">
+		<tr>
+			<td>First Name</td> 
+			<td><input type="text" value="" placeholder="First Name" name="fname" id="fname"> </td>
+		</tr>
+			<tr>
+			<td>Last Name</td> 
+			<td><input type="text" value="" placeholder="Last Name" name="lname" id="lname"> </td>
+		</tr>	
+		<tr>
+			<td>Email</td> 
+			<td><input type="text" value="" placeholder="Email" name="email" id="email"> </td>
+		</tr>
+		<tr>
+			<td>User Name</td> 
+			<td><input type="text" value="" placeholder="User Name" name="name" id="name"> </td>
+		</tr>	
+		<tr>
+			<td>Password</td> 
+			<td><input type="password" value="" placeholder="Password" name="password" id="password"> </td>
+		</tr>
+		<tr>
+			<td>Role</td> 
+			<td><%= select_tag "sel_group", options_for_select(@roleArray) ,{:class => "downdownbox"}%> </td>
+		</tr>		
+		<tr>
+			<td>Permission</td> 
+			<td><%= select_tag "permission", options_for_select(@permissionArray) ,{:class => "downdownbox"}%> </td>
+		</tr>
+		
+		
+		<tr>
+			<td colspan="2">
+				<input type="submit" name="add" value="Add" id="add"  class="butsubmit" onclick ="return validateForm()">
+				<input type="submit" name="cancel" value="Cancel"  id="cancel" class="butsubmit">
+			</td>
+		</tr>
+	</table>
+</div>

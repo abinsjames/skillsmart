@@ -1,0 +1,159 @@
+<style>
+	table.serifa{font-family:Arial,Helvetica,sans-serif;}
+</style>
+
+<style>
+	
+	.outer_container
+	{
+		margin:10px;
+	}
+	
+	.drop { width:250px; }
+	.drops { width:250px; }
+</style>
+
+
+
+<script>
+	$(document).ready(function(){
+	    $("#tabl").hide();
+	    $('#tabl').append($('<table  border =0 cellpadding="5"><tr  bgcolor="#4D94FF"><td width = 51%>Prerequisites</td><td width = 35%>Requirement</td></tr>'));
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("#mydiv").hide();
+		$("#btn").hide();
+		$('.drop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/home/popSecondPre', 
+				  data: {'id' : $('.drop').val()},
+				  success: function(data) 
+				  {
+						   $('#secDrop').empty();
+						   $('#secDrop').append( $('<option value= "">Select Speciality</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('#secDrop').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.drops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/home/PopThirdPre', 
+				  data: {'id' : $('.drops').val()},
+				  success: function(data) 
+				  {
+						   $('#txt').empty();	
+						   $('#txt').append('click checkbox to add your Skill');
+						   $('.my').empty();
+						   $.each(data,function(i, v) {
+						   $('.my').append( $('<div><span>-</span><input id="chk_'+data[i][0]+'" type="checkbox" onchange="validate(\''+data[i][0]+'\')" name="skill" class = "boox" value="'+ data[i][0] +'" /><span >'+data[i][1] +'</span></div>'));
+						  
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	function validate(val)		  
+	{	
+		var jobID 		 	 = 		document.getElementById("jobID");
+		var jobIDVal 		 = 		jobID.value;
+		$("#skill").show();
+		$("#tabl").show();
+		$("#btn").show();
+		var chkId="#chk_"+val
+		if($(chkId).is(':checked'))
+		{
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/home/addPrequisite', 
+					  data: {'id' : val, 'jobID' : jobIDVal},
+					  success: function(data) 
+					  {
+							skillname	=	data.skillname
+							skillid		=	data.skillid
+							$('#skill').append($('<div class="'+skillid+'"><tr><td><input type ="text" value ="'+skillname+'" disabled></td><td><select id="drp_'+val+'" onchange="validateDesOrPri(\''+val+'\')" ><option value="0">Required</option><option value="1">Prefered</option><option value="2">Acceptable</option></select></td></tr></div>'));
+							
+					  } 
+				  });
+		}
+		
+	}
+</script>
+
+
+<div class = "textfont">
+	<table align ="center" class ="serifa" >
+		 <tr>
+			<td class="serifa">Title</td><td><input type="text" style="height:25px;font-size:10pt;" size=80"  value="<%= @jobName %>" name="title" id="title"> </td>
+		 </tr>
+	</table>
+	
+	<table align ="center">
+		 <tr>
+			<td align = "left" style="visibility:hidden;"><%= button_to( "General", :action => "add_employee", :controller => "home", :method => :get) %> </td>
+			<td align = "left" ><button type="button" disabled>General</button>  </td>
+			<td align = "center"><%= button_to "Prerequisites", {:action => "jobPrerequisites", :controller => "home"} ,{:style => "background: #4D94FF" }  %> </td>
+			<td align = "right"><button type="button" disabled>Skills</button>  </td>
+		 </tr>
+	</table>
+	<div class="outer_container">
+		<div class = "textfont" style="width:60%;float:left;">
+			<div style="width:100%;">
+				<table  width="500px">
+				
+				<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+					
+				<tr>
+					<td width="200px">
+						please select your category
+					</td>
+					<td width="300px">
+					
+						<%= select_tag "sel_group", options_for_select(@skill) ,{:class => "drop"} %>
+					</td>
+				</tr>
+				<tr>
+					<td width="200px">
+						please select your Speciality
+					</td>
+					<td width="300px">
+					
+						<%= select_tag "sel_group1", options_for_select(@subskill), {:id => "secDrop" , :class => "drops"} %>
+					</td>
+				</tr>		
+				<tr>
+				</table>
+			</div>
+			<div style="width:100%;">
+					<span id ="txt"></span>
+					<div class="my" style="align:center; width:60%;"></div>
+			</div>		
+		</div>
+		<div id = "jquer" STYLE="margin-left: 60%">
+			<div id ="tabl">
+			</div>
+			<div id ="skill">
+			</div>
+			<div id ="btn">
+				<input type="submit" name="add" value="Done Prerequisites Definition" id="add" onclick ="return validateForm()">
+			</div>
+		</div>	
+	</div>
+</div>

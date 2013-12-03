@@ -1,0 +1,123 @@
+<script>
+	function validateDesOrPri(val)		  
+		{	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var value = $("#drp_"+val).val()
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/home/desiredOrRequired', 
+					  data: {'id' : value, 'skill' : val, 'jobID' : jobIDVal},
+					  success: function(data) 
+					  {
+					  } 
+				  });
+		}
+</script>
+
+<script>
+	function validatePrior(value)		  
+		{	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var reg = /^\d+$/;
+			var priority 		 = 		document.getElementById("prior_"+value);
+			var priorityVal		 = 		priority.value;
+			if(priorityVal.match(reg))
+			{
+				if(priorityVal >0 && priorityVal < 11)
+				{
+					$.ajax({ 
+							  type: 'GET', 
+							  url: '/home/skillRatingPriorityVal', 
+							  data: {'priorityVal' : priorityVal, 'skill' : value, 'jobID' : jobIDVal},
+							  success: function(data) 
+							  {
+							  } 
+						  });
+				}
+				else
+				{
+					alert("Priority entered not between 1 to 10");
+					return false;
+				}
+			} 
+			else
+			{
+				alert("Please enter an integer value");
+				return false;
+			} 
+		}
+</script>	
+
+<script>
+	function validateRank(value)		  
+		{	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var reg = /^\d+$/;
+			var rank 		 	 = 		document.getElementById("rank_"+value);
+			var rankVal 		 = 		rank.value;
+			if(rankVal.match(reg))
+			{
+				if(rankVal >0 && rankVal < 11)
+				{
+					$.ajax({ 
+							  type: 'GET', 
+							  url: '/home/skillRatingRankVal', 
+							  data: {'rankVal' : rankVal, 'skill' : value, 'jobID' : jobIDVal},
+							  success: function(data) 
+							  {
+							  } 
+						  });
+				}
+				else
+				{
+					alert("Rank entered not between 1 to 10");
+					return false;
+				}
+			} 
+			else
+			{
+				alert("Please enter an integer value");
+				return false;
+			} 
+		}
+</script>	
+
+
+<div class = "textfont">
+	<input type="hidden" value="<%= @jobID %>"  name="prospect">
+	<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+	<table align ="center">
+		 <tr>
+			<td>Title</td><td><input type="text" style="height:25px;font-size:10pt;" size=80"  value="<%= @jobName %>" name="title" id="title"> </td>
+		 </tr>
+	</table>
+		 
+	<table>
+		<tr>
+			<td><p><div class = "textfont"><span style="width:80px;float:left;">Click on the</span><div style="width:50px;float:left;"> <%= link_to "Add", {:controller => "home", :action => "popupForSkill" , :id => @jobID.to_s},  :onclick=>"window.open(this.href,'myEducationPopup', 'scrollbars=yes,height=450,width=530,top=250,left=600' ); return false;" %></div><span style="width:55%;float:left;"> button to add job skills</span></div></p></td>
+		</tr>
+		<tr  bgcolor="#edf2f4">
+			<td width = "61%">Skill</td>
+			<td>Proficiency</td>
+			<td>Importance</td> 
+			<td>Required</td>
+		</tr>	
+		<% unless(@cnt_ary.nil?)%>
+			<% @cnt_ary.each do |value| %>
+				<tr>
+					<td><%= value['skillName'].to_s  %></td>
+					<td><select id="rank_<%= value['skillID'].to_s %>" onchange="validateRank('<%= value['skillID'].to_s  %>')" > <option value="1" <% if(value['skillProf'].to_i == 1) %> selected <% end %> >1</option><option value="2" <% if(value['skillProf'].to_i == 2) %> selected <% end %> >2</option><option value="3" <% if(value['skillProf'].to_i == 3) %> selected <% end %> >3</option><option value="4" <% if(value['skillProf'].to_i == 4) %> selected <% end %> >4</option><option value="5" <% if(value['skillProf'].to_i == 5) %> selected <% end %> >5</option><option value="6" <% if(value['skillProf'].to_i == 6) %> selected <% end %> >6</option><option value="7" <% if(value['skillProf'].to_i == 7) %> selected <% end %> >7</option><option value="8" <% if(value['skillProf'].to_i == 8) %> selected <% end %> >8</option><option value="9" <% if(value['skillProf'].to_i == 9) %> selected <% end %> >9</option><option value="10" <% if(value['skillProf'].to_i == 10) %> selected <% end %> >10</option></select></td>
+					<td><select id="prior_<%= value['skillID'].to_s %>" onchange="validatePrior('<%= value['skillID'].to_s  %>')" > <option value="1" <% if(value['skillImp'].to_i == 1) %> selected <% end %> >1</option><option value="2" <% if(value['skillImp'].to_i == 2) %> selected <% end %> >2</option><option value="3" <% if(value['skillImp'].to_i == 3) %> selected <% end %> >3</option><option value="4" <% if(value['skillImp'].to_i == 4) %> selected <% end %> >4</option><option value="5" <% if(value['skillImp'].to_i == 5) %> selected <% end %> >5</option><option value="6" <% if(value['skillImp'].to_i == 6) %> selected <% end %> >6</option><option value="7" <% if(value['skillImp'].to_i == 7) %> selected <% end %> >7</option><option value="8" <% if(value['skillImp'].to_i == 8) %> selected <% end %> >8</option><option value="9" <% if(value['skillImp'].to_i == 9) %> selected <% end %> >9</option><option value="10" <% if(value['skillImp'].to_i == 10) %> selected <% end %> >10</option></select></td>
+					<td><select id="drp_<%= value['skillID'].to_s  %>" onchange="validateDesOrPri('<%= value['skillID'].to_s  %>')" > <option value="1" <% if(value['required'].to_s == "YES") %> selected <% end %> >YES</option><option value="0" <% if(value['required'].to_s == "NO") %> selected <% end %> >NO</option></select></td>
+				</tr>
+			<% end %>
+		<% end %>	
+	</table>		
+	
+	<div id ="skillName">
+	</div>
+
+</div>

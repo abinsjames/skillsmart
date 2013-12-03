@@ -1,0 +1,32 @@
+<div class = "textfont">
+	<% unless(@cnt_ary.nil?)%>	
+		<% @cnt_ary.each do |value| %>
+			<table>
+				<tr>
+					<td>
+						Candidate Name
+					</td>
+					<td>
+						 <%= value['candidateName'] %> <%= value['candidateLName'] %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Candidate Address
+					</td>
+					<td>
+						<%= value['candidateAddress'] %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Candidate Email
+					</td>
+					<td>
+						<%= value['candidateEmail'] %>
+					</td>
+				</tr>
+			</table>	
+		<% end %>
+	<% end %>		
+</div>

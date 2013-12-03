@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+</head>
+
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="wrapContent" class="clearfix">
+
+<!-- BREADCRUMBS -->
+<div id="wrapBreadcrumbs" class="clearfix">
+	<div id="breadcrumbs">
+		<ul>
+			<li><a href='/home/homePage'>Home &raquo;</a></li>
+			<li><a href='/home/companyRegistration'>Company Registration</a></li> <!-- Omit the &raquo; on the last <li> item in order to hide the arrows -->
+		</ul>
+	</div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- ONE COLUMN -->
+<div id="oneCol" class="clearfix">
+	<!-- Insert jQuery tabs here if applicable -->
+	<div class="content">
+		<table width="100%">
+			<tbody>
+				<tr>
+					<td>
+						<%= form_tag(:action => "companyRegistration") do  %>	
+							<%= render 'formCompanyRegister' %>
+						<%end%>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- END ONE COLUMN -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</body>
+</html>
+

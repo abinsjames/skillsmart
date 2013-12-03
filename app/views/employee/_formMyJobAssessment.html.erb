@@ -1,0 +1,111 @@
+<script>
+	$(document).ready(function(){
+		$("button").click(function() {
+		    var jobID 		 		 = 		document.getElementById("jobID");
+			var jobIDVal 		 	 = 		jobID.value;	
+			var candidateID	 		 = 		document.getElementById("candidateID");
+			var candidateIDVal	 	 = 		candidateID.value;	
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/applyJob', 
+				  data: {'jobID' : jobIDVal, 'candidateID' : candidateIDVal},
+				  success: function(data) 
+				  {
+						alert("Applied for the job")
+				  } 
+			  });
+				
+		});
+	});	
+</script>
+<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+<input type = "hidden" name = "candidateIDVal" id = "candidateID" value = <%= session[:userid] %> >
+<div align ="left">
+	<div style="text-align:center;">
+		<div style="text-align:left;">
+			<table align ="center">
+				
+				<tr>
+					<td>Job:</td><td><%= @jobDesc %> (<%= @totalEmployeeScore %>) <td>
+				</tr>
+				<tr>
+					<td>Company Name: </td><td><%= @companyName %> <td>
+				</tr>
+				<tr>
+					<td>Location:</td><td> <%= @companyCity %>, <%= @companyState %> <td>
+				</tr>
+				<tr>
+					<td><%= link_to "Add To Watched Jobs" , {:controller => "employee", :action => "watchedJobs", :jobID => @jobID  }%>  | 
+					<%= link_to "Apply For Job", {:controller => "employee", :action => "popupApplyJob", :jobID => @jobID  },  :onclick=>"window.open(this.href,'popupApplyJob', 'height=350,width=800,top=250,left=300' ); return false;" %></td> 
+				</tr>	
+			</table>
+		</div>
+		
+		<table width="100%" style="margin-left:1px;">	
+			<% unless(@requiredArray.blank?)%>
+				<tr bgcolor="#edf2f4">
+					<td align ="left"> Required Skills</td>
+					<td style="width:120px;">My Proficiency</td>
+					<td></td>
+					<td style="width:200px;">Required Proficiency</td>
+					<td></td>
+				</tr> 
+				
+				<% @requiredArray.each do |value| %>  
+					<tr>
+						<td align ="left" style="padding-left:20px;width:350px;" ><%= value['reqSkills'].to_s  %></td>
+						<td><%= value['skillVal'].to_s  %></td>
+						<td  <% if(value['skillVal'].to_i >= value['employeeVal'].to_i ) %> bgcolor="#00FF00"  
+							<% else %>
+								<% if(value['skillVal'].to_i == (value['employeeVal'].to_i - 1 || value['employeeVal'].to_i - 2 )) %>
+									bgcolor="#FFFF00"
+								<%	else %> 
+									bgcolor="#FF0000" 
+								<% end %> 
+							<% end %>	></td>
+						<td><%= value['employeeVal'].to_s  %></td>	
+						<td style="width:130px;"> <%= link_to "Build My Skills"  , url_for({:controller => 'employee', :action => 'courseDetails' , :course => value['reqSkillID'].to_s }) %> </td>	   
+					</tr>
+					<% @cont = @cont + 1 %>
+				<% end %>
+			<% end %>	
+			
+			<% unless(@desiredArray.blank?)%>
+				<tr bgcolor="#edf2f4">
+					<td align ="left"> Desired Skills</td>
+					<td>My Proficiency</td>
+					<td></td>
+					<td>Required Proficiency</td>
+					<td></td>
+				</tr> 
+				<% @desiredArray.each do |value| %>  
+					<tr>	
+						<td align ="left" style="padding-left:20px;width:350px;" ><%= value['desSkills'].to_s  %></td>
+						<td><%= value['skillVal'].to_s  %></td>
+						<td style="width:130px;" <% if(value['skillVal'].to_i > value['employeeVal'].to_i ) %> bgcolor="#00FF00"  
+							<%	else %> bgcolor="#FF0000" <% end %> ></td>
+						<td><%= value['employeeVal'].to_s  %></td>
+						<td style="width:130px;"> <%= link_to "Build My Skills"  , url_for({:controller => 'employee', :action => 'courseDetails' , :course => value['desSkillID'].to_s }) %> </td>	   
+					</tr>
+					<% @cont = @cont + 1 %>
+				<% end %>
+			<% end %>	
+			<% unless(@prerequisiteArray.blank?)%>
+				<tr bgcolor="#edf2f4">
+					<td align ="left"> Employer Prerequisite</td>
+					<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+				</tr>  
+					
+				<% @prerequisiteArray.each do |value| %>	
+					<tr>
+						<td align ="left" style="padding-left:20px;width:350px;" ><%= value['prequisite'].to_s  %></td>
+						
+					</tr>
+				<% end %>
+			<% end %>
+		</table>
+	</div>
+</div>

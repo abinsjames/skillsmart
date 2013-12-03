@@ -1,0 +1,134 @@
+<style>
+
+	.outer_container
+	{
+		margin:10px;
+	}
+	
+	#txtFld , select { width:200px; 		
+	    border: 1px solid #D1D3D5;
+	    border-radius: 2px 2px 2px 2px;
+	    color: #6A747C;
+	    font-family: 'Questrial', sans-serif;
+	    font-size: 15px;
+	    padding: 10px;
+	}
+	
+</style>
+
+
+<script>
+	$(document).ready(function(){
+		$('.popUpButtonForSkill').hide();
+		$('.drop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/popSecond', 
+				  data: {'id' : $('.drop').val()},
+				  success: function(data) 
+				  {
+						   $('.drops').empty();
+						   $('.drops').append( $('<option value= "">Select Speciality</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('.drops').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.drops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/PopThird', 
+				  data: {'id' : $('.drops').val()},
+				  success: function(data) 
+				  {
+						   $('#txt').empty();	
+						   $('#txt').append('click checkbox to add your Skill');
+						   $('.my').empty();
+						   $.each(data,function(i, v) {
+						   $('.my').append( $('<div><span>-</span><input id="chk_'+data[i][0]+'" type="checkbox"  name="skill" class = "boox" value="'+ data[i][0] +'" /><span >'+data[i][1] +'</span></div>'));
+						 });
+						 $('.popUpButtonForSkill').show();
+				  } 
+			  });
+		});
+	});	
+</script>
+
+
+
+<script>
+	$(document).ready(function(){
+		$("button").click(function(){	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var counter			 =		0;
+			var skillARY		 =		[];		
+		
+			$("input[name='skill']:checked").each(
+				function(index,value) { 
+					skillARY[(counter)]=value.value;
+					counter=parseInt(counter)+1;	
+			});		
+			
+			if(skillARY.length>0)
+			{
+				$.ajax({ 
+						  type: 'GET', 
+						  url: '/home/addRequiredSkills', 
+						  data: {'id' : skillARY, 'jobID' : jobIDVal},
+						  success: function(data) 
+						  {
+								var name = window.opener.$("#skillName");
+								
+								$.each(data,function(i, v) {
+									$(name).append($('<table><tr><td width = "61%"><div class="'+data[i][0]+'">'+data[i][1]+'</div></td><td><div class="'+data[i][0]+'"><select id="rank_'+data[i][0]+'" onchange="validateRank(\''+data[i][0]+'\')" ><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td><td><div class="'+data[i][0]+'"><select id="prior_'+data[i][0]+'" onchange="validatePrior(\''+data[i][0]+'\')" ><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></td><td><div class="'+data[i][0]+'"><select id="drp_'+data[i][0]+'" onchange="validateDesOrPri(\''+data[i][0]+'\')" ><option value="1">YES</option><option value="0">NO</option></select></div></td></tr></table>'));
+									 });																																																																																																																																													
+								self.close();
+						  } 
+					  });
+			}
+		});
+	});	
+</script>
+
+<input type="hidden" value="<%= @id %>"  name="prospect">
+<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @id %> >
+<div class="outer_container">
+	<div class = "textfont" style="width:100%;float:left;">
+		<div style="width:100%;">
+			<table  width="500px">
+				<tr>
+					<td width="200px">
+						please select your category
+					</td>
+					<td width="300px">
+						<%= select_tag "sel_group", options_for_select(@skill) ,{:class => "drop"} %>
+					</td>
+				</tr>
+				<tr>
+					<td width="200px">
+						please select your Speciality
+					</td>
+					<td width="300px">
+						<%= select_tag "sel_group1", options_for_select(@subskill), {:id => "secDrop" , :class => "drops"} %>
+					</td>
+				</tr>							
+			</table>
+		</div>
+		<div style="width:100%;">
+			<span id ="txt"></span>
+			<div class="my" style="align:center; width:138%;"></div>
+			<div class="popUpButtonForSkill"><button type="button">Add</button></div>
+		</div>		
+	</div>
+</div>
+

@@ -1,0 +1,85 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	var empName 		 = 		document.getElementById('empName');
+	var empAge 			 = 		document.getElementById('empAge');
+	var empAdd 			 = 		document.getElementById('empAdd');
+	var empUsName		 = 		document.getElementById('empUsName');
+	var empPass 		 =		document.getElementById('empPass');
+	
+	var empNamelen 		 = 		empName.value.length;
+	var empAgelen 		 = 		empAge.value.length;
+	var empAddlen 		 = 		empAdd.value.length;
+	var empUsNamelen 	 = 		empUsName.value.length;
+	var empPasslen 		 = 		empPass.value.length;
+	var numbers			 = 		/^[0-9]+$/;  
+      if(empAge.value.match(numbers))
+      {
+		var empAg = true
+      }
+      else
+      {
+		var empAg = false
+      }
+	
+	if (empNamelen == 0 ||  empAddlen == 0 || empAgelen == 0 || empUsNamelen == 0 || empPasslen == 0)
+	{
+		alert("Some fields are empty");  
+		return false;
+	}
+	
+	else if (empUsNamelen < 4 || empUsNamelen > 10)  
+	{  
+		 alert("Username should be of size minimum of 4 letters and maximum of 10 ");
+		 return false; 
+	}  
+		
+	
+	else if (empPasslen < 6)  
+	{  
+		 alert("Minimum password size should be 6");
+		 return false; 
+	}  
+
+	else if (empAg == false)
+	{
+		alert("age cannot be letters or other charatcers");
+		return false;
+	}
+	
+	else
+	{
+		return true;
+	}
+	
+	
+ }
+</script>
+<div class = "textfont">
+	<table align ="center">
+		 <tr>
+			<td>Employee Name</td> <td><input type="text" value="" name="empName" id="empName"> </td>
+		  </tr>
+		  <tr>	
+			<td>Employee Age</td> <td><input type="text" value="" name="empAge" id="empAge"> </td>
+		  </tr>	
+		  <tr>	
+			<td>Employee Address</td> <td><input type="text" value="" name="empAdd" id="empAdd"> </td>
+		  </tr>	
+		  <tr>	
+			<td>User name</td> <td><input type="text" value="" name="empUsName" id="empUsName"> </td>
+		  </tr>
+		  <tr>	
+			<td>Password</td> <td><input type="password" value="" name="empPass" id="empPass"> </td>
+		  </tr>			
+
+		  <tr>
+			<td>
+				<input type="submit" name="add" value="Add" id="add"  onclick ="return validateForm()">
+			 </td>
+		  </tr>
+		  <tr>
+			<td style= "color:red"><%=session[:lmsg]%></td>
+		  <tr>
+	<table>
+</div>

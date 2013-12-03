@@ -1,0 +1,34 @@
+<div class = "textfont">
+	<input type="hidden" value="<%= @jobID %>"  name="prospect">
+	<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @jobID %> >
+	<table align ="center" class ="serifa" >
+		 <tr>
+			<td>Title</td><td><input type="text" style="height:25px;font-size:10pt;" size=80"  value="<%= @jobName %>" name="title" id="title"> </td>
+		 </tr>
+	</table>
+
+	<table>
+		<tr>
+			<td><p><div class = "textfont"><span style="width:80px;float:left;">Click on the</span><div style="width:50px;float:left;"> <%= link_to "Add", {:controller => "home", :action => "popupForPrerequisite" , :id => @jobID.to_s},  :onclick=>"window.open(this.href,'myEducationPopup', 'scrollbars=yes,height=450,width=530,top=250,left=600' ); return false;" %></div><span style="width:55%;float:left;"> button to add job prerequisites</span></div></p></td>
+		</tr>
+		<tr  bgcolor="#edf2f4">
+			<td width = 77%>Prerequisites</td>
+			<td>Requirement</td>
+		</tr>
+		<% unless(@preARY.nil?)%>
+			<% @preARY.each do |value| %>
+				<tr>
+					<td><%= value['jobName'].to_s %></td>
+					<td><select><option value="0">Required</option><option value="1">Prefered</option><option value="2">Acceptable</option></select></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</table>
+	
+	<div id ="preName">
+	</div>
+				
+</div>
+				
+				
+				

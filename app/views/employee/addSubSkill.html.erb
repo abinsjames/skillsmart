@@ -1,0 +1,42 @@
+<title>Employee</title>
+<body background='../images/background2.jpg'>
+
+<table align ="center">
+	<tr>
+		<td class="errorMessage"></td>
+	</tr>
+	<tr>
+		<td><strong><h1>Add Speciality</h1></strong></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="errorMessage"><%=session[:lnermsg]%></td>
+	</tr>
+	<tr>	
+		<form action="listSkill" name="formName" method="post" enctype="multipart/form-data">
+			<td align="right">
+				<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="searchTable">
+					<tr>
+						<td>
+							<div align="right">
+								<%= form_tag  %>	
+									<input type="submit" value="Add Category" name="Addskill" id="add">&nbsp;
+									<input type="submit" value="Add Speciality" name="Addsub" id="add">&nbsp;
+									<input type="submit" value="Add Skills" name="AddThird" id="add">&nbsp;
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</form>
+	</tr>
+	<tr>
+		<td>
+			<%= form_tag(:action => "addSubSkill") do  %>	
+				<%= render 'formAddSubSkill' %>
+			<%end%>
+		</td>
+	</tr>
+</table>

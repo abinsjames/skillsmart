@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<style>
+	.list 
+	{
+		 background:none!important;
+		 border:none; 
+		 padding:0!important;
+		
+		 /*optional*/
+		 font-family:arial,sans-serif; /*input has OS specific font-family*/
+		 color:#F47B2F;
+		 text-align: left;
+		 cursor:pointer;
+	}	 
+		 
+	.outer_container
+	{
+		margin:10px;
+	}
+</style>
+
+<script>
+$(document).ready(function(){
+
+    $( "#login" ).hide();
+    $( "#createProfile" ).hide();
+});
+</script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+	<title>Employee</title>
+</head>
+
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="wrapContent" class="clearfix" style="width: 1237px">
+
+<!-- BREADCRUMBS -->
+<div id="wrapBreadcrumbs" class="clearfix">
+	<div id="breadcrumbs">
+		<ul>
+			<li><a href='/home/homePage'>Home &raquo;</a></li>
+			<li><a href='/home/myskillsPortfolio'>Access My Skills</a></li> <!-- Omit the &raquo; on the last <li> item in order to hide the arrows -->
+		</ul>
+	</div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- LEFT COLUMN -->
+<div id="leftCol" class="clearfix">
+
+	<!-- BUTTONS -->
+	<div id="buttonMenu">
+		<ul>
+			<li><a href='/jobseeker/dashboard'>Dashboard &raquo;</a></li> 
+			<li><a href='/jobseeker/myJobFinder'>Find Jobs &raquo;</a></li> 
+			<li><a href='/jobseeker/portfolioNew'>Portfolio &raquo;</a></li> 
+		</ul>
+	</div>
+	<!-- END BUTTONS -->
+
+</div>
+<!-- END LEFT COLUMN -->
+
+<!-- RIGHT COLUMN -->
+<div id="rightCol" class="clearfix">
+	<!-- Insert jQuery tabs here if applicable -->
+	<div class="content">
+		<table width="80%">
+			<tbody>
+				<tr>
+					<td>
+						<%= form_tag(:action => "myskillsPortfolio") do  %>	
+							<%= render 'formMyskillsPortfolio' %>
+						<%end%>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- END RIGHT COLUMN -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</body>
+</html>

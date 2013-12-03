@@ -1,0 +1,68 @@
+
+<script>
+
+
+		
+	function validateForms()
+	{
+
+		var empUserNames			 = 		document.getElementById('names');
+		var empPasswords 	 		 = 		document.getElementById('passwords');
+		
+		var empMobilelens 			 = 		empUserNames.value.length;
+		var empEmaillens 		 	 = 		empPasswords.value.length;
+		
+		
+
+		
+		if (empMobilelens == 0 ||  empEmaillens == 0)
+		{
+			alert("Some fields are empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+	
+		
+
+	
+</script>
+
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+
+<div class = "textfont">
+    <table border="0" align="center">
+		<% if(@msg) %>
+			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					Username or Password incorrect
+				</p>
+			</div>
+		<% end %>
+		<tr>
+		  <td align="right">Username:</td> 	<td><input type="text" name="empUsNames" id="names"></td>
+		</tr>
+		<tr>  
+		  <td align="right">Password:</td> 	<td><input type="password" name="empPasss" id="passwords"></td>
+		 </tr> 
+		 <tr>
+			 <td></td>			<td><input type="submit" name="logins" id="login" value="Login"></td>
+		 </tr>
+		 <div align = "left">
+			<%= link_to "New User", {:controller => "employee", :action => "addEmployee"}%>
+		 </div>
+	</table>
+</div>

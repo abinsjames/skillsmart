@@ -1,0 +1,98 @@
+<script>
+$(document).ready(function(){
+
+    $( "#wrapFooter" ).hide();
+});
+</script>
+
+<title>Employee</title>
+<div class = "textfont">
+	<table align = "left">	
+		<% unless(@skillName.nil?)%>
+			<tr>
+				<td>
+					<% unless(@b.nil?) %>
+						<table  border="0" cellpadding="0" cellspacing="0" align = "right">
+							<tr align="center" valign="middle">							
+								<th><div  style="font-size:15px; width:auto; height:auto; float:left; text-align:center;">Skills</a></div></th>	                            				
+											
+							</tr>
+								
+									<% emp_data  							= 		Skill.find_by_id(@b) %>
+									<% @head								=		emp_data.name %>
+									<% @id									=		emp_data.parentid %>	
+									<% emp									=		Skill.find_by_id(@id) %>		
+									<% @mainhead							=		emp.name %>
+							
+							<tr>	
+								<td align ="left">
+									<div>
+										<div  style="font-size : 170%;float:left;">.</div>
+										<div style="float:left; padding:5px 0 0 5px;"><%= @mainhead.to_s %></div>
+									</div>
+								</td>
+							</tr>	
+							<tr>	
+								<td align ="left">
+									<div style=" margin-left:20px;">
+										- <%= @head.to_s %>
+									</div>	
+								</td>
+							</tr>	
+							<% @skillName.each do |value| %>
+								<% if (@b.to_s == value['parentid'].to_s) %>
+								<tr>
+									<td>
+										<div style=" margin-left:40px;">
+											<div  style="font-size : 170%;float:left;">.</div>
+											<div style="float:left; padding:5px 0 0 5px;">
+												<div style="float:left; padding:5px 0 0 5px;"><button class="list" type="button" value="<%= value['portfolioskillid'].to_s  %>"> <%= value['skillname'].to_s  %></button> 
+												<div>
+											</div>
+										</div>
+									</td>
+								</tr>
+										
+								<% else %>
+									<% @b = value['parentid'].to_s %>
+									<% emp_da  							= 		Skill.find_by_id(@b) %>
+									<% @head							=		emp_da.name %>
+									<% @id								=		emp_da.parentid %>	
+									<% em								=		Skill.find_by_id(@id) %>		
+									<% @mainheading						=		em.name %>
+									<% if(@mainheading.to_s != @mainhead.to_s) %>
+										<% @mainhead = @mainheading.to_s %>
+										<tr>
+											<td align ="left">			
+												<div>
+													<div  style="font-size : 170%;float:left;">.</div>
+													<div style="float:left; padding:5px 0 0 5px;"><%= @mainhead.to_s %></div>
+												</div>
+											</td>
+										</tr>
+									<% end %>
+								<tr>
+									<td align ="left">	
+										<div style=" margin-left:20px;">		
+											- <%= @head.to_s %> </br>
+										</div>	
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div style=" margin-left:40px;">		
+												<div  style="font-size : 170%;float:left;">.</div>
+												<div style="float:left; padding:5px 0 0 5px;"><button class="list" type="button" value="<%= value['portfolioskillid'].to_s  %>"> <%= value['skillname'].to_s  %></button> 
+												<div>												
+										</div> 
+									</td>	
+								</tr>
+								<% end %>	
+							<% end %>
+						</table>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>	
+	</table>
+</div>

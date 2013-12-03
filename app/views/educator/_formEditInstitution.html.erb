@@ -1,0 +1,85 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	var name 			= 		document.getElementById('name');
+	var password		= 		document.getElementById('password');
+	var email			= 		document.getElementById('email');
+	var permission  	= 		document.getElementById('permission');
+	var fname			= 		document.getElementById('fname');
+	var lname		  	= 		document.getElementById('lname');
+	
+	var namelen 		= 		name.value.length;
+	var passwordlen 	= 		password.value.length;
+	var emaillen 		= 		email.value.length;
+	var permissionlen 	= 		permission.value.length;
+	var fnamelen 		= 		fname.value.length;
+	var lnamelen 		= 		lname.value.length;
+	
+	var x				=		email.value;
+	var atpos			=		x.indexOf("@");
+	var dotpos			=		x.lastIndexOf(".");
+
+	if (namelen == 0 ||  emaillen == 0 || permissionlen == 0 || passwordlen == 0 || fnamelen == 0 || lnamelen == 0)
+	{
+		alert("Some fields are empty");  
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+    {
+	    alert("Not a valid e-mail address");
+	    return false;
+    }
+}
+</script>
+<input type="hidden" value="<%= @userID	 %>"  name="prospect" id="prospect">
+<div class = "textfont">
+	<% unless(@institutionData.nil?)%>
+		<% @institutionData.each do |value| %>
+			<table align = "center">
+				<tr>
+					<td>Institution Name *</td> 
+					<td><input type="text" value="<%= value['name'] %>" name="name" id="name"> </td>
+				</tr>	
+				<tr>
+					<td>Address</td> 
+					<td><input type="text" value="<%= value['address'] %>"  name="address" id="address"> </td>
+				</tr>
+				<tr>
+					<td>Web Address *</td> 
+					<td><input type="text" value="<%= value['website'] %>"  name="website" id="website"> </td>
+				</tr>
+				<tr>
+					<td>City *</td> 
+					<td><input type="text" value="<%= value['city'] %>" name="city" id="city"> </td>
+				</tr>
+				<tr>
+					<td>State *</td> 
+					<td><input type="text" value="<%= value['state'] %>" name="state" id="state"> </td>
+				</tr>
+				<tr>
+					<td>Country *</td> 
+					<td><input type="text" value="<%= value['country'] %>" name="country" id="country"> </td>
+				</tr>	
+				<tr>
+					<td>Zip</td> 
+					<td><input type="text" value="<%= value['zip'] %>" name="zip" id="zip"> </td>
+				</tr>
+				<tr>
+					<td>Mobile</td> 
+					<td><input type="text" value="<%= value['phoneNumber'] %>" name="phoneNumber" id="phoneNumber"> </td>
+				</tr>		
+				<tr>
+					<td colspan="2">
+						<input type="submit" name="update" value="Update" id="update">
+						<input type="submit" name="cancel" value="Cancel"  id="cancel">
+					</td>
+				</tr>
+			</table>
+		<% end %>
+	<% end %>		
+</div>

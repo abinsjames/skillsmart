@@ -1,0 +1,53 @@
+<script>
+	function validateForm()
+	{
+
+		var prequisite 			 = 		document.getElementById('prequisite');
+		var description		 	 = 		document.getElementById('description');
+
+
+		var prequisitelen 	 	 = 		prequisite.value.length;
+		var descriptionlen 	 	 = 		description.value.length;
+		
+		if (prequisitelen == 0 || descriptionlen == 0)
+		{
+			alert("Some  field is empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+</script>
+
+<div class = "textfont">
+	<table width="60%" border="0" cellpadding="0" cellspacing="10">
+		<tr>
+			<td>Prequisite
+			</td>
+			<td>
+				<input type="text" name="prequisite" id="prequisite"></td>
+			</td>
+
+		</tr>
+		<tr>
+			<td>Description
+			</td>
+			<td>
+				<input type="text" name="description" id="description"></td>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input type="submit" name="add" value="Add" id="add" onclick ="return validateForm()">
+				<input type="submit" name="cancel" value="Cancel" id="cancel">
+			 </td>
+		</tr>
+	<table>
+</div>

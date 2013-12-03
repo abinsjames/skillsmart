@@ -1,0 +1,38 @@
+<title>Employer</title>
+
+<table align ="center">
+	<tr>
+		<td class="errorMessage"></td>
+	</tr>
+	<tr>
+		<td class="pageHead"><div style="float:left;"><strong>Add Institution</strong></div></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	
+	<tr>	
+		<form action="listInstitution" name="formName" method="post" enctype="multipart/form-data">
+			<td align="right">
+				<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<div align="right">
+								<%= form_tag  %>	
+									<input type="submit" value="Add Institution" name="AddInstitution" id="add">&nbsp;
+									<input type="submit" value="Add Course" name="AddCourse" id="add">&nbsp;
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</form>
+	</tr>
+	<tr>
+		<td>
+			<%= form_tag(:action => "addInstitution") do  %>	
+				<%= render 'formAddInstitution' %>
+			<%end%>
+		</td>
+	</tr>
+</table>

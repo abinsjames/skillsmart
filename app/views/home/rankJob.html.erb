@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Employee</title>
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+
+<script>
+$(document).ready(function(){
+
+    $( "#login" ).hide();
+    $( "#createProfile" ).hide();
+});
+</script>
+
+<script>
+	function validatePrior(value)		  
+		{	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var reg = /^\d+$/;
+			var priority 		 = 		document.getElementById("prior_"+value);
+			var priorityVal		 = 		priority.value;
+			if(priorityVal.match(reg))
+			{
+				if(priorityVal >0 && priorityVal < 11)
+				{
+					$.ajax({ 
+							  type: 'GET', 
+							  url: '/home/skillRatingPriorityVal', 
+							  data: {'priorityVal' : priorityVal, 'skill' : value, 'jobID' : jobIDVal},
+							  success: function(data) 
+							  {
+							  } 
+						  });
+				}
+				else
+				{
+					alert("Priority entered not between 1 to 10");
+					return false;
+				}
+			} 
+			else
+			{
+				alert("Please enter an integer value");
+				return false;
+			} 
+		}
+</script>	
+
+<script>
+	function validateRank(value)		  
+		{	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var reg = /^\d+$/;
+			var rank 		 	 = 		document.getElementById("rank_"+value);
+			var rankVal 		 = 		rank.value;
+			if(rankVal.match(reg))
+			{
+				if(rankVal >0 && rankVal < 11)
+				{
+					$.ajax({ 
+							  type: 'GET', 
+							  url: '/home/skillRatingRankVal', 
+							  data: {'rankVal' : rankVal, 'skill' : value, 'jobID' : jobIDVal},
+							  success: function(data) 
+							  {
+							  } 
+						  });
+				}
+				else
+				{
+					alert("Rank entered not between 1 to 10");
+					return false;
+				}
+			} 
+			else
+			{
+				alert("Please enter an integer value");
+				return false;
+			} 
+		}
+</script>	
+
+<script>
+	function validateDesOrPri(val)		  
+		{	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var value = $("#drp_"+val).val()
+			$.ajax({ 
+					  type: 'GET', 
+					  url: '/home/desiredOrRequired', 
+					  data: {'id' : value, 'skill' : val, 'jobID' : jobIDVal},
+					  success: function(data) 
+					  {
+					  } 
+				  });
+		}
+</script>
+
+<script type="text/javascript">
+	$(function() {
+
+		$('#tags_1').tagsInput();
+		// Uncomment this line to see the callback functions in action
+		//			$('input.tags').tagsInput({onAddTag:onAddTag,onRemoveTag:onRemoveTag,onChange: onChangeTag});		
+
+		// Uncomment this line to see an input with no interface for adding new tags.
+		//			$('input.tags').tagsInput({interactive:false});
+		});
+</script>
+</head>
+
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="wrapContent" class="clearfix" style="width: 1237px">
+
+<!-- BREADCRUMBS -->
+<div id="wrapBreadcrumbs" class="clearfix">
+	<div id="breadcrumbs">
+		<ul>
+			<li><a href='/home/homePage'>Home &raquo;</a></li>
+			<li><a href='/home/dashBoard'>Dashboard</a></li> <!-- Omit the &raquo; on the last <li> item in order to hide the arrows -->
+		</ul>
+	</div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- LEFT COLUMN -->
+<div id="leftCol" class="clearfix">
+
+	<!-- BUTTONS -->
+	<div id="buttonMenu">
+		<ul>
+			<li><a href='/home/dashBoard'>Dashboard &raquo;</a></li> 
+			<li><a href='/home/companyUserList'>Users &raquo;</a></li> 
+			<li><a href='/home/jobPostingNew'>Post Jobs &raquo;</a></li> 
+			<li><a href='/home/candidateSearch'>Search Candidates &raquo;</a></li>
+		</ul>
+	</div>
+	<!-- END BUTTONS -->
+
+</div>
+<!-- END LEFT COLUMN -->
+
+<!-- RIGHT COLUMN -->
+<div id="rightCol" class="clearfix">
+	<!-- Insert jQuery tabs here if applicable -->
+	<div class="content">
+		<table width="100%">
+			<tbody>
+				<tr>
+					<td>
+						<form name="tripleplay" action="rankJobDone" method="post">
+							<%= render 'formRankJob' %>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- END RIGHT COLUMN -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</body>
+</html>

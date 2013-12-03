@@ -1,0 +1,44 @@
+<title>Employee</title>
+<div id="container" style="width:100%" class ="textfont">
+	<div id="header" style="height:50px;margin-left: 3%;">
+		<%= link_to image_tag('/images/logo.jpg') , url_for({:controller => 'home', :action => 'homePage'}) %> 
+	</div>
+	<div id="menu" style="height:500px;width: 200px;float:left;">
+		<br>
+		<p style ="margin-left:20px;">Focus</P>
+		<%= link_to image_tag('/images/job_openings.jpg') , url_for({:controller => 'employee', :action => 'myJobFinder'})%> <br> 
+			<div id="menu" style="float:right;">
+				<%= link_to image_tag('/images/skills.jpg') , url_for({:controller => 'employee', :action => 'myskillsPortfolio'})%><br>
+				<%= link_to image_tag('/images/workex.jpg') , url_for({:controller => 'employee', :action => 'myWorkHistory'}) %><br>
+			</div>
+		<%= link_to image_tag('/images/jobtracking.png')  %><br>
+		<%= link_to image_tag('/images/portfolio.gif') , url_for({:controller => 'employee', :action => 'portfolioNew'}) %><br>
+			<div id="menu" style="float:right;">
+				<%= link_to image_tag('/images/education.jpg') , url_for({:controller => 'employee', :action => 'myEducation'})%><br>
+				<%= link_to image_tag('/images/interviews.png') , url_for({:controller => 'employee', :action => 'myResume'})  %><br>
+			</div>
+		<%= link_to image_tag('/images/maindemo.jpg'), url_for({:controller => 'employee', :action => 'dashboard'})   %><br>
+	</div>
+	
+	
+	<table width="60%" border="0" cellpadding="0" cellspacing="0" align ="center" >
+		<tr>
+			<td align ="right">Welcome <%= session[:name] %> <%= session[:lastname] %></td>
+		</tr>
+		<tr>
+			<td><div style=" margin-left:200px;"><strong><h1>My Education</h1></strong></div></td>
+		</tr>
+		
+		<tr>
+			<td><p><div class = "textfont">Click on the <%= link_to "Add", {:controller => "employee", :action => "myEducationPopup"},  :onclick=>"window.open(this.href,'myEducationPopup', 'height=350,width=450,top=250,left=600' ); return false;" %> button to add your Educational Details</div></p></td>
+		</tr>
+
+		<tr>
+			<td>
+				<%= form_tag(:action => "myEducation") do  %>	
+					<%= render 'formMyEducation' %>
+				<%end%>
+			</td>
+		</tr>
+	</table>
+</div>	

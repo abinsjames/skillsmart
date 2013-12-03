@@ -1,0 +1,196 @@
+<meta charset="utf-8" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+	$(function() 
+	{
+		$( "#slider-range-min" ).slider(
+			{
+				range: "min",
+				value: <% if @prof %>
+						<%= @prof %>
+						<% else %>
+						 <%= @def %>
+						 <% end %>,
+				min: 1,
+				max: 10,
+				slide: function( event, ui ) 
+				{
+					$( "#amount" ).val(  ui.value );
+				}
+			});
+		$( "#amount" ).val( $( "#slider-range-min" ).slider( "value" ) );
+
+		$( "#slider-min1" ).slider(
+			{
+				range: "min",
+				value: <% if @exp %>
+						<%= @exp %>
+						<% else %>
+						 <%= @def %>
+						 <% end %>,
+				min: 1,
+				max: 10,
+				slide: function( event, ui ) 
+				{
+					$( "#val" ).val(  ui.value );
+				}
+			});
+		$( "#val" ).val( $( "#slider-min1" ).slider( "value" ) );
+	
+		
+	});
+</script>
+<div class = "textfont">
+	<table width="70%" align =" center">
+		
+		<tr>
+			
+			<td>Proficency:<input type="text" size ="1" id="amount" name="proficency" style="border: 0; color: #FF6600; font-weight: bold;" readonly></td>
+		</tr>
+		
+		<tr>	
+			<td><div id="slider-range-min" style="color: #FF6600;"></div></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>Years Experience:<input type="text" size ="1" id="val" name="experience" style="border: 0; color: #FF6600; font-weight: bold;" readonly></td>
+		</tr>
+		
+		<tr>	
+			<td><div id="slider-min1" style="color: #FF6600;"></div></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td  width ="300" style="font-size:15px">Certificate/Credentials:</td>
+			<td><%= link_to "Add" ,{ :controller => "employee", :action => "myCertificates" ,   :id =>  params[:id].to_s } , :onclick=>"window.open(this.href,'myCertificates', 'height=350,width=500,top=250,left=600' ); return false;" %></td>
+		</tr>	
+		<tr>	
+			<td>
+				<table align = "center">
+
+					<% unless(@certi.nil?)%>
+					<tr>
+						<td>
+							<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+								<tr>
+									<td align="center" valign="middle">
+										<table width="90%" border="0" cellpadding="0" cellspacing="0">
+											<% @certi.each do |value| %>
+												<tr>
+													<td width ="300"><%= value['certificate'].to_s %></td>
+													<td><%= link_to 'Delete' %></td>
+												</tr>
+												<tr>
+													<td width ="300"><%= value['description'].to_s %></td>
+												</tr>
+												
+												<tr>
+													<td>&nbsp</td>
+												<tr>
+												
+											<% end %>
+											
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<% end %>	
+				</table>
+			</td>
+		</tr>	
+		<tr>
+			<td width ="300" style="font-size:15px">References:</td>
+			<td><%= link_to "Add"  , {:controller => "employee", :action => "myReferences" ,   :id =>  params[:id].to_s } , :onclick=>"window.open(this.href,'myReferences', 'height=350,width=450,top=250,left=600' ); return false;" %></td>
+		</tr>
+		<tr>	
+			<td>		
+				<table align = "center">	
+					<% unless(@refer.nil?)%>
+					<tr>
+						<td>
+							<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+								<tr>
+									<td align="center" valign="middle">
+										<table width="90%" border="0" cellpadding="0" cellspacing="0">
+											<% @refer.each do |value| %>
+												<tr>
+													<td width ="300"><%= value['reference'].to_s %></td>
+													<td><%= link_to 'Delete' %></td>
+												</tr>
+												<tr>
+													<td width ="300"><%= value['description'].to_s %></td>
+												</tr>
+												
+												<tr>
+													<td>&nbsp</td>
+												<tr>
+												
+											<% end %>
+											
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<% end %>	
+				</table>	
+			 </td>
+		</tr>	  	
+		<tr>
+			<td width ="300" style="font-size:15px">Examples:</td>
+			<td><%= link_to "Add"  , {:controller => "employee", :action => "myExamples",  :id =>  params[:id].to_s} , :onclick=>"window.open(this.href,'myExamples', 'height=350,width=450,top=250,left=600' ); return false;" %></td>
+		</tr>
+		<tr>	
+			<td>
+				<table align = "center">			
+					
+					<% unless(@exampl.nil?)%>
+					<tr>
+						<td>
+							<table cellpadding="0" cellspacing="0" border="0" align ="center" width="100%">
+								<tr>
+									<td align="center" valign="middle">
+										<table width="90%" border="0" cellpadding="0" cellspacing="0">
+											<% @exampl.each do |value| %>
+												<tr>
+													<td width ="300"><%= value['example'].to_s %></td>
+													<td><%= link_to 'Delete' %></td>
+												</tr>
+												<tr>
+													<td width ="300"><%= value['description'].to_s %></td>
+												</tr>
+												
+												<tr>
+													<td>&nbsp</td>
+												<tr>
+												
+											<% end %>
+											
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<% end %>	
+				</table>
+				<tr>
+					<td><input type="hidden" value="<%= params[:id] %>" name="id" id="add"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Add" name="submit" id="add"></td>
+				</tr>
+				
+			</table>
+		 </td>
+		</tr> 	
+</div>

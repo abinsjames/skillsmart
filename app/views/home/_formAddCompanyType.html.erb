@@ -1,0 +1,53 @@
+<script>
+	function validateForm()
+	{
+
+		var skill 			 	 = 		document.getElementById('comType');
+		var description		 	 = 		document.getElementById('description');
+
+
+		var skilllen 		 	 = 		skill.value.length;
+		var descriptionlen 	 	 = 		description.value.length;
+		
+		if (skilllen == 0 || descriptionlen == 0)
+		{
+			alert("Some  field is empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+</script>
+
+<div class = "textfont">
+	<table width="60%" border="0" cellpadding="0" cellspacing="10">
+		<tr>
+			<td>Company Type
+			</td>
+			<td>
+				<input type="text" name="comType" id="comType"></td>
+			</td>
+
+		</tr>
+		<tr>
+			<td>Description
+			</td>
+			<td>
+				<input type="text" name="description" id="description"></td>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input type="submit" name="add" value="Add" id="add" onclick ="return validateForm()">
+				<input type="submit" name="cancel" value="Cancel" id="cancel">				
+			 </td>
+		</tr>
+	<table>
+</div>

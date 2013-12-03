@@ -1,0 +1,53 @@
+
+
+<div>
+	 <table>
+		 <% unless(@companyDetails.nil?)%>
+			<% @companyDetails.each do |value| %>
+				<tr>
+					<td>Company Name: </td><td><%= link_to value['companyName']  , url_for({:controller => 'home', :action => 'editCompany' , :companyID => value['companyID'].to_s}) %> <td>
+				</tr>
+				<tr>
+					<td>Location:</td><td> <%= value['companyCity'] %>, <%= value['companyState'] %> <td>
+				</tr>
+			<% end %>	
+		 <% end %>	
+		<% unless(@dash.blank?)%>
+			<tr>
+				</td>
+					<table cellpadding="5"> 
+						<tr align="center" valign="middle" bgcolor="#edf2f4">							
+							<th width="150">Position</th>	             
+							<th width="150">Status</th>               				
+							<th width="150">Owner(s)</th>   
+							<th width="150"># of days posted</th>  
+							<th width="150"># of job seekers applied</th>          				
+							<th width="150">Actions</th>
+																						
+						</tr>
+						<% @dash.each do |value| %>
+										<% @count = @count + 1 %>
+										<tr>
+											<td><%= link_to value['position']  , url_for({:controller => 'home', :action => 'edit' , :jobID => value['jobID'].to_s}) %></td>
+											<td><%= value['status'].to_s %></td>
+											<td><%= value['owners'].to_s  %></td>
+											<td  align ="center"><%= value['noOfDays'].to_s  %></td>
+											<td  align ="center"><%= value['noAplied'].to_s  %></td>
+											<td><% if(value['stat'] == 4) %>
+													<%= link_to value['nextStep'].to_s, {:controller => "home", :action => value['action'].to_s, :jobID => value['jobID'].to_s  },  :onclick=>"window.open(this.href,'popupPostPosition', 'height=350,width=450,top=250,left=600' ); return false;" %>
+												<% else %>
+													<%= link_to value['nextStep'].to_s, {:controller => "home", :action => value['action'].to_s, :jobID => value['jobID'].to_s  }%></td>
+												<% end %>
+										</tr>
+									<% end %>
+					</table>
+				</td>
+			</tr>
+	</table>	
+					
+	<% else %>
+		No Jobs posted yet Found!
+	<% end %>
+</div>
+
+		

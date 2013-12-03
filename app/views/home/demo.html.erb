@@ -1,0 +1,97 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	alert("fg");
+	
+ }
+</script>
+
+<div class = "textfont">
+	<table align ="center">
+		<tr>
+			<td width = 50% valign="baseline">
+				<table>
+					<tr>
+						<td>Job Title</td><td><input type="text" style="height:25px;font-size:10pt;" size=46" placeholder="Job Title" value="" name="title" id="title"> </td>
+					</tr>
+					<tr>
+						<td> Description </td>
+						<td><textarea name="details"  id="details"  style="width: 72%; height: 210px;"></textarea></td>
+					</tr>	
+					<tr>
+						<td><%= radio_button_tag(:type, "1" , :checked => true) %></td>
+						<td><%= label_tag(:jobOpt, "Part Time") %></td> 
+					<tr>
+					<tr>
+						<td><%= radio_button_tag(:type, "2") %></td> 
+						<td><%= label_tag(:jobOpt, "Full Time") %></td>
+					<tr>
+				</table>
+			</td>
+			
+			<td  width = 50%>
+				<table>
+					<tr>
+						<td>Category</td><td><%= select_tag "jobCategory", options_for_select(@jobCategory, @userRole)%></td>
+					</tr>
+					<tr>
+						<td>Hiring Authorities *</td> <td><%= select_tag "sel_tag" "stores[]", options_for_select(@hiringAuthority), :multiple => true ,:style => "width:150px;" %></td>
+					</tr>
+					<tr>
+						<td>HR</td><td><%= select_tag "hrManager[]", options_for_select(@hrManager), :multiple => true ,:style => "width:150px;"%></td>
+					</tr>
+					<tr>
+						<td>Manager</td><td><%= select_tag "manager[]", options_for_select(@manager), :multiple => true ,:style => "width:150px;"%></td>
+					</tr>
+					<tr>
+						<td>Reviewers</td><td><%= select_tag "reviewer[]", options_for_select(@reviewer), :multiple => true ,:style => "width:150px;"%></td>
+					</tr>
+				</table>	
+			</td>
+		</tr>
+		
+		<tr>
+			<td width = 50%>
+				<table>
+					<tr>
+						<td>Address</td> <td><input type="text" value="" name="address" id="address"></td>
+					<tr>
+					<tr>
+						<td>City</td> <td><input type="text" value="" name="city" id="city"></td>
+					<tr>
+					<tr>
+						<td>State</td> <td><input type="text" value="" name="state" id="state"></td>
+					<tr>
+					<tr>
+						<td>Zip</td> <td><input type="text" value="" name="zip" id="zip"></td>
+					<tr>
+				</table>	
+			</td>
+			
+			<td width = 50%>
+				<table>
+					<tr>
+						<td># of openings*</td><td><input type="text" size="9" value="" name="openings" id="openings"> </td>
+					<tr>
+					<tr>
+						<td>Open Date*</td><td><input type="text" size="9" value="" class="sdate" name="opdate" id="opdate"> </td>
+					<tr>
+					<tr>
+						<td>Close Date*</td><td><input type="text" size="9" value="" class="sdate" name="cldate" id="cldate"> </td>				
+					<tr>
+					<tr>
+						<td>Salary*</td><td><input type="text" size="9" value="" name="salary" id="salary"> </td>
+					<tr>
+				</table>	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" name="add" value="Add" id="add" onclick ="return validateForm()">
+			</td>
+		</tr>
+	</table>
+</div>		
+			
+				
+		

@@ -1,0 +1,146 @@
+<style>
+
+	
+	.outer_container
+	{
+		margin:10px;
+	}
+	
+	
+	.drop { width:150px; }
+	.drops { width:150px; }
+	#jobDrop { width:150px; }
+	
+		#firstDrop , #secDrop{
+	    border: 1px solid #D1D3D5;
+	    border-radius: 2px 2px 2px 2px;
+	    color: #6A747C;
+	    font-family: 'Questrial', sans-serif;
+	    font-size: 15px;
+	    padding: 10px;
+	}
+</style>
+
+
+<script>
+	$(document).ready(function(){
+		$("#mydiv").hide();
+		$("#btn").hide();
+		
+		$('.drop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/popSecond', 
+				  data: {'id' : $('.drop').val()},
+				  success: function(data) 
+				  {
+						   $('.drops').empty();
+						   $('.drops').append( $('<option value= "">Select Speciality</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('.drops').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.drops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/jobseeker/PopThird', 
+				  data: {'id' : $('.drops').val()},
+				  success: function(data) 
+				  {
+						   $('#txt').empty();	
+						   $('#txt').append('click checkbox to add your Skill');
+						   $('.my').empty();
+						   $.each(data,function(i, v) {
+						   $('.my').append( $('<div><span>-</span><input type="checkbox" name="skill[]" class = "boox" value="'+ data[i][0] +'" /><span >'+data[i][1] +'</span></div>'));
+						   $("#btn").show();
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("button").click(function(){
+			var jobID  =  $('.downdownbox').val();
+			location.href = '/home/availableCandidate?jobID='+jobID;
+      
+   });
+});
+</script>
+
+<table>
+	<tr>
+		<td>
+			<div style="width:100%;" class ="textfont">
+				<table  width="500px">
+					<tr>
+						<td>
+							Search by Skills
+						</td>
+					</tr>
+					<tr>
+						<td width="200px">
+							Select Category
+						</td>
+						<td width="300px">
+						
+							<%= select_tag "sel_group", options_for_select(@skill) ,{:id => "firstDrop" ,:class => "drop"} %>
+						</td>
+					</tr>
+					<tr>
+						<td width="200px">
+							Select Specialty
+						</td>
+						<td width="300px">
+						
+							<%= select_tag "sel_group1", options_for_select(@subskill), {:id => "secDrop" , :class => "drops"} %>
+						</td>
+					</tr>		
+				</table>
+			</div>
+			<div style="width:100%;" class ="textfont">
+				<span id ="txt"></span>
+				<div class="my" style="align:center; width:60%;"></div>
+				<div id = "btn"><input type = "submit" value = "Search"  name ="search"></div>	
+			</div>	
+		</td>
+		<td valign="top">
+			<div style="width:100%;" class ="textfont">
+				<table  width="500px">
+					<tr>
+						<td>
+							Search by Jobs
+						</td>
+					</tr>
+					<tr>
+						<td width="200px">
+							Select Job
+						</td>
+						<td width="300px">
+							<%= select_tag "jobID", options_for_select(@jobs) ,{:id => "jobDrop" , :class => "downdownbox"} %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td>
+							<div class="popUpButton"><button type="button">Search</button></div>
+						</td>	
+					</tr>	
+				</table>
+			</div>		
+		</td>
+	</tr>
+</table>

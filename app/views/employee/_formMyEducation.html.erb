@@ -1,0 +1,35 @@
+
+<% unless(@eduArray.nil?)%>
+	<table>
+		<tr>
+			<td><p><div class = "textfont"><span style="width:80px;float:left;">Click on the</span><div style="width:50px;float:left;"> <%= link_to "Add", {:controller => "employee", :action => "myEducationPopup"},  :onclick=>"window.open(this.href,'myEducationPopup', 'height=450,width=560,top=250,left=600' ); return false;" %> </div><span style="width:520px;float:left;"> button to add your Educational Details</span></div></p></td>
+		</tr>
+		<tr>	
+			<td>
+				<div STYLE="margin-left: 0%" class = "textfont">
+					<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+						<tr bgcolor="#edf2f4">
+							<td width ="200">Institution</td>
+							<td width ="200">Degree</td>
+							<td width ="200">Field of study</td>
+							<td width ="200">Date</td>
+							<td width ="200">Actions</td>
+						</tr>
+						<% @eduArray.each do |educ| %>	
+							<% @count = @count + 1 %>
+							<tr>
+								<td width ="100"><%= educ['college'].to_s %></td>
+								<td width ="100"><%= educ['degree'].to_s %></td>
+								<td width ="100"><%= educ['field'].to_s %></td>
+								<td width ="100"><%= educ['date'].to_s %></td>
+								<td width ="100"><%= link_to 'Edit' , url_for({:controller => 'employee', :action => 'editEducation'  , :EduID => educ['educationID'].to_s}) ,  :onclick=>"window.open(this.href,'editEducationPopup', 'height=450,width=600,top=250,left=300' ); return false;" %> </td>	   
+
+							</tr>
+						<% end %>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+<% end %>	
+				

@@ -1,0 +1,33 @@
+
+<div class = "textfont">
+	<div style="text-align:left;">
+		<table>
+			<tr>
+				<td width="150px">Company *</td>
+				<td><input type="text" name="company"  id="company" ></td>
+			</tr>
+			<tr>
+				<td>Position *</td>
+				<td><input type="text"  value="" name="job" id="job"></td>
+			</tr>
+			<tr>
+				<td>From *</td>
+				<td><input type="text" class="sdate" name="from" id="opdate"> </td>
+			</tr>
+			<tr>
+				<td>Until *</td>
+				<td><input type="text" name="till" id="datepickers"> </td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul style="float:left;list-style:none;margin-left:-40px;">
+						<li style="float:left;list-style:none;margin-top:+20px;"><button type="button">Add</button></li>
+						<li style="float:left;list-style:none;"><%= submit_tag "Cancel", :onclick => "window.close()"  %></li>
+					<ul>
+				 </td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+

@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.css" />
+<script src="/assets/javascripts/jquery-1.9.1.js"></script>
+<script src="/assets/javascripts/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.min.css" />
+
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+
+<script>
+
+
+		
+	function validateForm()
+	{
+
+		var empUserName 			 = 		document.getElementById('name');
+		var empPassword 	 		 = 		document.getElementById('password');
+		var empPasswordsame	 		 = 		document.getElementById('passwordsame');
+		var empFirstName			 = 		document.getElementById('fname');
+		var empLastName		 		 = 		document.getElementById('lname');
+		var empAddressline1	 		 =		document.getElementById('addressline1');		
+		var empEmail 				 = 		document.getElementById('email');
+		
+		var empUserNamelen 			 = 		empUserName.value.length;
+		var empPasswordlen 			 = 		empPassword.value.length;
+		var empFirstNamelen 	 	 = 		empFirstName.value.length;
+		var empLastNamelen 			 = 		empLastName.value.length;
+		var empAddressline1len 		 = 		empAddressline1.value.length;
+		var empEmaillen 		 	 = 		empEmail.value.length;
+		
+		var passwordone 			 = 		empPassword.value;
+		var passwordtwo 			 = 		empPasswordsame.value;
+		
+		var empMobileVal 			 = 		empMobile.value;
+		var empEmailVal			 	 = 		empEmail.value;		
+		
+		var regMobile		 		 = 		/^([0-9]{10})$/;
+		var regEmail 				 = 		/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		 
+
+		
+		if (empUserNamelen == 0 ||  empPasswordlen == 0 || empFirstNamelen == 0 || empLastNamelen == 0 || empAddressline1len == 0 || empEmaillen == 0)
+		{
+			alert("Some fields are empty");  
+			return false;
+		}
+		
+		else if (passwordone != passwordtwo)  
+		{  
+			 alert("Password mismatch");
+			 return false; 
+		}  
+		
+		else if(regMobile.test(empMobileVal) == false) 
+		{			
+			alert("Not a valid mobile number");
+			return false;
+		}
+		
+
+		else if(regEmail.test(empEmailVal) == false) 
+		{			
+			alert("Not a valid mobile email");
+			return false;
+		}
+		
+		else if (empUserNamelen < 4)  
+		{  
+			 alert("Minimum username size should be 4 ");
+			 return false; 
+		}  
+			
+		
+		else if (empPasswordlen < 6)  
+		{  
+			 alert("Minimum password size should be 6");
+			 return false; 
+		}  
+
+
+		
+		else
+		{
+			return true;
+		}
+
+	}
+	
+		
+
+	
+</script>
+
+<div>
+    <table align = "center">
+    	<tr>
+			<td>User Name *</td> 
+			<td><input type="text" value="" placeholder="User Name" name="name" id="name"> </td>
+		</tr>	
+		<tr>
+			<td>Password *</td> 
+			<td><input type="password" value="" placeholder="Password" name="password" id="password"> </td>
+		</tr>
+		<tr>
+			<td> Confirm Password *</td> 
+			<td><input type="password" value="" placeholder="Password" name="passwordsame" id="passwordsame"> </td>
+		</tr>
+		<tr>
+			<td>First Name *</td> 
+			<td><input type="text" value="" placeholder="First Name" name="fname" id="fname"> </td>
+		</tr>
+		<tr>
+			<td>Last Name *</td> 
+			<td><input type="text" value="" placeholder="Last Name" name="lname" id="lname"> </td>
+		</tr>
+		<tr>
+			<td>Address *</td> 
+			<td><input type="text" value="" placeholder="Address " name="addressline1" id="addressline1"> </td>
+		</tr>	
+		
+		<tr>
+			<td>City</td> 
+			<td><input type="text" value="" placeholder="City " name="city" id="city"> </td>
+		</tr>
+		
+		<tr>
+			<td>State</td> 
+			<td><input type="text" value="" placeholder="State " name="state" id="state"> </td>
+		</tr>
+		
+		<tr>
+			<td>Country</td> 
+			<td><input type="text" value="" placeholder="Country " name="country" id="country"> </td>
+		</tr>
+		
+		<tr>
+			<td>Zip</td> 
+			<td><input type="text" value="" placeholder="Zip" name="zip" id="zip"> </td>
+		</tr>
+					
+		<tr>
+			<td>Email *</td> 
+			<td><input type="text" value="" placeholder="Email" name="email" id="email"> </td>
+		</tr>
+		<tr>
+			<td>Mobile</td> 
+			<td><input type="text" value="" placeholder="Mobile" name="mobile" id="mobile"> </td>
+		</tr>		
+
+		<tr>
+			<td colspan="2">
+				<input type="submit" name="add" value="Add" id="add" >
+				<input type="submit" name="cancel" value="Cancel" id="cancel" >
+			</td>
+		</tr>
+	</table>
+</div>

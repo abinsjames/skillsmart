@@ -1,0 +1,54 @@
+<title>Employee</title>
+
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.css" />
+<script src="/assets/javascripts/jquery-1.9.1.js"></script>
+<script src="/assets/javascripts/jquery-ui-1.10.3.custom.js"></script>
+<link rel="stylesheet" href="/assetsstylesheets/jquery-ui-1.10.3.custom.min.css" />
+
+<script>
+	$(function() {
+	$( "input[type=submit] , button" )
+	.button()
+	.click(function( event ) {
+		});
+	});
+</script>
+<table align ="center">
+	<tr>
+		<td class="errorMessage"></td>
+	</tr>
+	<tr>
+		<td><strong><h1>Add Speciality</h1></strong></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="errorMessage"><%=session[:lnermsg]%></td>
+	</tr>
+	<tr>	
+		<form action="listPrequisite" name="formName" method="post" enctype="multipart/form-data">
+			<td align="right">
+				<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="searchTable">
+					<tr>
+						<td>
+							<div align="right">
+								<%= form_tag  %>	
+									<input type="submit" value="Add Category" name="Addskill" id="add">&nbsp;
+									<input type="submit" value="Add Speciality" name="Addsub" id="add">&nbsp;
+									<input type="submit" value="Add Prequisite" name="AddThird" id="add">&nbsp;
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</form>
+	</tr>
+	<tr>
+		<td>
+			<%= form_tag(:action => "addSubPrequisite") do  %>	
+				<%= render 'formAddSubPrequisite' %>
+			<%end%>
+		</td>
+	</tr>
+</table>

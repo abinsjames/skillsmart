@@ -1,0 +1,110 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	var company		 	 = 		document.getElementById('company');
+	var address 		 =		document.getElementById('address');
+	var city 		 	 =		document.getElementById('city');
+	var state 			 =		document.getElementById('state');
+	var zip 		 	 =		document.getElementById('zip');
+	
+	
+	var companylen 		 = 		company.value.length;
+	var addresslen 		 = 		address.value.length;
+	var citylen 		 = 		city.value.length;
+	var statelen 		 = 		state.value.length;
+	var ziplen 	 		 = 		zip.value.length;
+	
+	var numbers			 = 		/^[0-9]+$/;  
+      
+	if(zip.value.match(numbers))
+	{
+		var zp = true
+	}
+	else
+	{
+		var zp = false
+	}
+
+	if (companylen == 0 ||  addresslen == 0 || citylen == 0 || statelen == 0 || ziplen == 0)
+	{
+		alert("Some fields are empty");  
+		return false;
+	}
+
+	else if (zp == false)
+	{
+		alert("cant enter letters zipcode");
+		return false;
+	}
+
+	else
+	{
+		return true;
+	}
+}
+</script>
+
+<style>
+	table.serifa{font-family:Arial,Helvetica,sans-serif;}
+</style>
+	
+<div class = "textfont">	
+	<input type="hidden" value="<%= @companyID %>"  name="companyID">
+	<% unless(@dataARY.nil?)%>
+		<% @dataARY.each do |value| %>
+			<table align ="center" border =0>
+				  <td class="serifa">Company</td><td><input type="text" style="height:20px;font-size:10pt;" size="65" value="<%= value['companyName'] %>" name="company" id="company"> </td>
+			</table>
+			<table align ="center" border =0>
+				 <tr>
+					 <td>
+						Location			 
+						<table align ="center" border =0 >
+							<tr>
+								<td>Address</td> <td><input type="text" value="<%= value['address'] %>" name="address" id="address"></td>
+							<tr>
+							<tr>
+								<td>City</td> <td><input type="text" value="<%= value['city'] %>" name="city" id="city"></td>
+							<tr>
+							<tr>
+								<td>State</td> <td><input type="text" value="<%= value['state'] %>" name="state" id="state"></td>
+							<tr>
+							<tr>
+								<td>Zip</td> <td><input type="text" value="<%= value['zip'] %>" name="zip" id="zip"></td>
+							<tr>
+						</table>
+					 </td>
+					 
+					 <td>
+						Company Types
+						<table align ="center" border =0 >
+						
+							<tr>
+								<td>
+									Industry
+								</td>
+								<td>
+									<%= select_tag "sel_group", options_for_select(@compType, @companytype) ,{:class => "downdownbox"}%>
+								</td>
+							<tr>
+							<tr>
+								<td>Sector</td> <td><select class ="downdownbox" name ="opt2">
+													  <option value="private">Private</option>
+													  <option value="public">Public</option>
+													  </select> 
+												  </td>
+							<tr>
+							
+						</table>
+					 </td>
+				 </tr>
+				 <tr>
+					<td colspan="2">
+						<input type="submit" name="update" value="Update" id="add"  onclick ="return validateForm()">
+						<input type="submit" name="cancel" value="Cancel" id="cancel" >
+					</td>
+				</tr>
+			</table>
+		<% end %> 
+	<% end %>		
+</div>

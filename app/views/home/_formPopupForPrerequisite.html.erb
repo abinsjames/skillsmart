@@ -1,0 +1,136 @@
+<style>
+	.preDrop { width:250px; }
+	.subPredrops { width:250px; }
+	
+
+	
+	 select { width:200px; 		
+	    border: 1px solid #D1D3D5;
+	    border-radius: 2px 2px 2px 2px;
+	    color: #6A747C;
+	    font-family: 'Questrial', sans-serif;
+	    font-size: 15px;
+	    padding: 10px; }
+
+	
+</style>
+
+
+
+<script>
+	$(document).ready(function(){
+		$('.popUpButton').hide();
+		$('.preDrop').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/home/popSecondPre', 
+				  data: {'id' : $('.preDrop').val()},
+				  success: function(data) 
+				  {
+						   $('#presecDrop').empty();
+						   $('#presecDrop').append( $('<option value= "">Select Specialty</option>'));						   
+						   $.each(data,function(i, v) {
+						   $('#presecDrop').append( $('<option value="'+ data[i][0] +'">'+data[i][1] +'</option>'));
+						 });
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+
+		$('.subPredrops').change(function() 
+		{
+			$.ajax({ 
+				  type: 'GET', 
+				  url: '/home/PopThirdPre', 
+				  data: {'id' : $('.subPredrops').val()},
+				  success: function(data) 
+				  {
+						   $('#preTxt').empty();	
+						   $('#preTxt').append('click checkbox to add Prerequsites');
+						   $('.thirdPre').empty();
+						   $.each(data,function(i, v) 
+						   {
+								$('.thirdPre').append( $('<div><span>-</span><input id="prechk_'+data[i][0]+'" type="checkbox"  name="prerequsite" class = "preboox" value="'+ data[i][0] +'" /><span >'+data[i][1] +'</span></div>'));
+						   });
+						   $('.popUpButton').show();
+				  } 
+			  });
+		});
+	});	
+</script>
+
+<script>
+	$(document).ready(function(){
+		$("button").click(function(){	
+			var jobID 		 	 = 		document.getElementById("jobID");
+			var jobIDVal 		 = 		jobID.value;
+			var counter			 =		0;
+			var preRequisiteARY	 =		[];		
+		
+			$("input[name='prerequsite']:checked").each(
+				function(index,value) { 
+					preRequisiteARY[(counter)]=value.value;
+					counter=parseInt(counter)+1;	
+			});		
+			
+			if(preRequisiteARY.length>0)
+			{
+				$.ajax({ 
+						  type: 'GET', 
+						  url: '/home/addPrequisite', 
+						  data: {'id' : preRequisiteARY, 'jobID' : jobIDVal},
+						  success: function(data) 
+						  {
+						  
+								var preName = window.opener.$("#preName");
+								$.each(data,function(i, v) {
+								   $(preName).append($('<table><tr><td width = "77%"><div class="'+data[i][0]+'">'+data[i][1]+'</div></td><td><div class="'+data[i][0]+'"><select id="drp_'+data[i][0]+'" ><option value="0">Required</option><option value="1">Prefered</option><option value="2">Acceptable</option></select></div></td></tr></table>'));
+								 });
+								
+								
+								self.close();
+								
+						 } 
+					  });
+			}
+		});
+	});	
+</script>
+
+<input type="hidden" value="<%= @id %>"  name="prospect">
+<input type = "hidden" name = "jobIDVal" id = "jobID" value = <%= @id %> >
+<div class = "textfont" style="width:97%;float:left;">
+	<div style="width:100%;">
+		<table  width="500px">
+			<tr>
+				<td width="200px">
+					please select your category
+				</td>
+				<td width="300px">
+				
+					<%= select_tag "sel_group", options_for_select(@prerequsite) ,{:class => "preDrop"} %>
+				</td>
+			</tr>
+			<tr>
+				<td width="200px">
+					please select your Specialty
+				</td>
+				<td width="300px">
+				
+					<%= select_tag "sel_group1", options_for_select(@subprerequsite), {:id => "presecDrop" , :class => "subPredrops"} %>
+				</td>
+			</tr>		
+			<tr>
+		</table>
+	</div>
+	<div style="width:100%;">
+		<span id ="preTxt"></span>
+		<div class="thirdPre" style="align:center; width:60%;"></div>
+		<div class="popUpButton"><button type="button">Add</button></div>
+	</div>		
+</div>

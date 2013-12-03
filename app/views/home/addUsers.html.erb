@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<script>
+		$(function() {
+		$( "input[type=submit] , button" )
+		.button()
+		.click(function( event ) {
+			});
+		});
+	</script>
+	<title>Employer</title>
+</head>
+
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="wrapContent" class="clearfix">
+
+<!-- BREADCRUMBS -->
+<div id="wrapBreadcrumbs" class="clearfix">
+	<div id="breadcrumbs">
+		<ul>
+			<li><a href='/home/homePage'>Home &raquo;</a></li>
+			<li><a href='/home/addUsers'>Add User</a></li> <!-- Omit the &raquo; on the last <li> item in order to hide the arrows -->
+		</ul>
+	</div>
+</div>
+<!-- END BREADCRUMBS -->
+
+<!-- LEFT COLUMN -->
+<div id="leftCol" class="clearfix">
+
+	<!-- BUTTONS -->
+	<div id="buttonMenu">
+		<ul>
+			<li><a href='/home/dashBoard'>Dashboard &raquo;</a></li> 
+			<li><a href='/home/companyUserList'>Users &raquo;</a></li> 
+			<li><a href='/home/jobPostingNew'>Post Jobs &raquo;</a></li> 
+			<li><a href='/home/candidateSearch'>Search Candidates &raquo;</a></li>
+		</ul>
+	</div>
+	<!-- END BUTTONS -->
+
+</div>
+<!-- END LEFT COLUMN -->
+
+<!-- RIGHT COLUMN -->
+<div id="rightCol" class="clearfix">
+	<!-- Insert jQuery tabs here if applicable -->
+	<div class="content">
+		<table width="100%">
+			<tbody>
+				<tr>
+					<td>
+						<%= form_tag(:action => "addUsers") do  %>	
+							<%= render 'formAddUser' %>
+						<%end%>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- END RIGHT COLUMN -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+</body>
+</html>
+
+

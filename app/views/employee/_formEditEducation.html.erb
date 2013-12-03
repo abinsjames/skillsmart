@@ -1,0 +1,36 @@
+<div class = "textfont">
+	<div style="text-align:left;">
+		<% unless(@dataARY.blank?)%>	
+			<% @dataARY.each do |value| %>	
+				<table align ="left">
+					<input type="hidden" name="educationID" value = "<%= @educationID %>"  id="educationID" >
+					<tr>
+						<td width="150px">Institution *</td>
+						<td><input type="text" name="university" value = "<%= value['college'] %>"  id="university" ></td>
+					</tr>	
+					<tr>
+						<td>Course/Degree *</td>
+						<td><input type="text"  name="certificate" value = "<%= value['degree'] %>" id="certificate"></td>
+					</tr>
+					
+					<tr>
+						<td>Field of Study *</td>
+						<td><input type="text" name="field" value = "<%= value['field'] %>" id="field"> </td>
+					</tr>
+					<tr>
+						<td>Date *</td>
+						<td><input type="text" name="from" value = "<%= value['date'] %>" id="opdate"> </td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<ul style="float:left;list-style:none;">
+								<li style="float:left;list-style:none;"><button type="button">Add</button></li>
+								<li style="float:left;list-style:none;margin-top:-20px;"><%= submit_tag "Cancel", :onclick => "window.close()"  %></li>
+							<ul>
+						 </td>
+					</tr>
+				</table>
+			<% end %>
+		<% end %>		
+	</div>
+</div>

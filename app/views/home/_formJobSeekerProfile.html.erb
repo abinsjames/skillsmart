@@ -1,0 +1,123 @@
+<div class = "textfont">
+	<table>
+		<% unless(@skillDetails.blank?)%>
+			
+			<tr align ="right">
+				<td>
+					<%= link_to 'Candidate Evaluation' , url_for({:controller => 'home', :action => 'candidateEvaluation'  , :jobseekerIDVal => @jobseekerIDVal.to_s, :jobID => @jobID.to_s}) %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Candidate Skills
+				</td>
+			</tr>
+			
+			<tr>	
+				<td>
+					<div STYLE="margin-left: 10%">
+						<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+							<tr bgcolor="#edf2f4">
+								<td width ="100">Category</td>
+								<td width ="100">Speciality</td>
+								<td width ="100">Skills</td>
+								<td align ="center" width ="100">Proficiency</td>
+							</tr>
+							<% @skillDetails.each do |value| %>	
+								<% @count = @count + 1 %>
+								<tr>
+									<td width ="100"><%= value['categoryName'].to_s %></td>
+									<td width ="100"><%= value['specialityName'].to_s %></td>
+									<td width ="100"><%= value['skillName'].to_s %></td>
+									<td align ="center" width ="100"><%= value['skillProficency'].to_s %></td>
+								</tr>
+							<% end %>	
+						</table>
+					</div>
+				</td>
+			</tr>
+		<% end %>
+		
+		<% unless(@education.blank?)%>
+			<tr>
+				<td>
+					Candidate Education
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tr>	
+							<td>
+								<div STYLE="margin-left: 10%">
+									<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+										<tr bgcolor="#edf2f4">
+											<td width ="200">University</td>
+											<td width ="200">Degree</td>
+											<td width ="200">Field of study</td>
+											<td width ="200">Date</td>
+										</tr>
+										<% @education.each do |value| %>	
+											<% @count = @count + 1 %>
+											<tr>
+												<td width ="100"><%= value['college'].to_s %></td>
+												<td width ="100"><%= value['degree'].to_s %></td>
+												<td width ="100"><%= value['field'].to_s %></td>
+												<td width ="100"><%= value['date'].to_s %></td>
+											</tr>
+										<% end %>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>	
+			</tr>
+		<% end %>	
+		<% unless(@workHistory.blank?)%>
+			<tr>
+				<td>
+					Candidate WorkHistory
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<table>
+						<tr>	
+							<td>
+								<div STYLE="margin-left: 10%">
+									<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+										<tr bgcolor="#edf2f4">
+											<td width ="200">Company</td>
+											<td width ="200">Position</td>
+											<td width ="200">From Date</td>
+											<td width ="200">Till Date</td>
+										</tr>
+										<% @workHistory.each do |value| %>	
+											<% @count = @count + 1 %>
+											<tr>
+												<td width ="100"><%= value['company'].to_s %></td>
+												<td width ="100"><%= value['title'].to_s %></td>
+												<td width ="100"><%= value['fromdate'].to_s %></td>
+												<td width ="100"><%= value['tilldate'].to_s %></td>
+											</tr>
+										<% end %>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		<% end %>	
+		<tr>
+			<% unless(@jobseekerID.nil?)%>
+				<% @jobseekerID.each do |value| %>
+					<td>
+						<%= link_to "Connect"  , url_for({:action => "jobSeekerContact", :controller => "home", :prospect => value['id'].to_s }), {:class => "link", :id => "post"} %>
+					</td>
+				<% end %>	
+			<% end %>	
+		</tr>
+	</table>
+</div>

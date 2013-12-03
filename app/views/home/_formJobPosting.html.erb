@@ -1,0 +1,166 @@
+<script type="text/javascript">
+function validateForm()
+ {
+	var title 		 	 = 		document.getElementById('title');
+	var openings 		 = 		document.getElementById('openings');
+	var opdate 			 = 		document.getElementById('opdate');
+	var datepickers		 = 		document.getElementById('datepickers');
+	var address 		 =		document.getElementById('address');
+	var city 		 	 =		document.getElementById('city');
+	var state 			 =		document.getElementById('state');
+	var zip 		 	 =		document.getElementById('zip');
+	var hr 		 		 =		document.getElementById('hr');
+	var manager 		 =		document.getElementById('manager');
+	var salary 			 =		document.getElementById('salary');
+	var reviewers 		 =		document.getElementById('reviewers');
+	var Jobctgry 		 =		document.getElementById('jobCategory');
+	
+	var titlelen 		 = 		title.value.length;
+	var addresslen 		 = 		address.value.length;
+	var citylen 		 = 		city.value.length;
+	var statelen 		 = 		state.value.length;
+	var hrlen 			 = 		hr.value.length;
+	var managerlen 		 = 		manager.value.length;
+	var openingslen 	 = 		openings.value.length;
+	var reviewerslen 	 = 		reviewers.value.length;
+	var opdatelen 	 	 = 		opdate.value.length;
+	var datepickerslen 	 = 		datepickers.value.length;
+	var ziplen 	 		 = 		zip.value.length;
+	var salarylen 	 	 = 		salary.value.length;
+	var Jobctgrylen 	 = 		Jobctgry.value.Jobctgry;
+	
+	var numbers			 = 		/^[0-9]+$/;  
+      
+     if(openings.value.match(numbers))
+      {
+		var open = true
+      }
+      else
+      {
+		var open = false
+      }
+     
+      if(zip.value.match(numbers))
+      {
+		var zp = true
+      }
+      else
+      {
+		var zp = false
+      }
+      
+      if(salary.value.match(numbers))
+      {
+		var sal = true
+      }
+      else
+      {
+		var sal = false
+      }
+	
+	  if (titlelen == 0 ||  addresslen == 0 || citylen == 0 || statelen == 0 || hrlen == 0 || managerlen == 0 ||  openingslen == 0 || reviewerslen == 0 || opdatelen == 0 || datepickerslen == 0 || ziplen == 0 || salarylen == 0 || Jobctgrylen ==0)
+		
+		{
+			alert("Some fields are empty");  
+			return false;
+		}
+		
+		else if (open == false || zp == false || sal == false)
+		{
+			alert("cant enter letters in salary or number of openings or zipcode");
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+	
+	
+ }
+</script>
+
+<style>
+
+	.margin
+	{
+		margin-left:80px;
+	}
+</style>
+
+<div class = "textfont">
+	<table align ="center" class ="serifa" >
+		 <tr>
+			<td class="serifa">Title</td><td><input type="text" style="height:25px;font-size:10pt;" size=80" placeholder="Job Description" value="" name="title" id="title"> </td>
+		 </tr>
+	</table>
+	
+	<table align ="center">
+		 <tr>
+			<td align = "left" style="visibility:hidden;"><%= button_to( "General", :action => "add_employee", :controller => "home", :method => :get) %> </td>
+			<td align = "left" ><%= button_to "General", {:action => "jobOpening", :controller => "home" }  ,{:style => "background: #4D94FF" }  %> </td>
+			<td align = "center"><%= button_to "Prerequisites", {:action => "jobPrerequisites", :controller => "home"}   %> </td>
+			<td align = "right"><%= button_to( "Skills", :action => "jobSkills", :controller => "home") %> </td>
+		 </tr>
+	</table>
+	
+	<table align ="center" border =0>
+		  <tr>
+			<td># of openings</td><td><input type="text" size="5" value="" name="openings" id="openings"> </td>
+			<td>Open Date</td><td><input type="text" size="15" value="" class="sdate" name="opdate" id="opdate"> </td>
+			<td>Salary</td><td><input type="text" size="15" value="" name="salary" id="salary"> </td>
+		 </tr>
+	</table>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<table align ="center" border =0>
+		 <tr>
+			 <td>
+				Work location
+				<table align ="center" border =0 >
+					<tr>
+						<td>Category</td>	<td><%= select_tag "jobCategory", options_for_select(@jobCategory)%></td>
+					</tr>
+					<tr>
+						<td>Address</td> <td><input type="text" value="" name="address" id="address"></td>
+					<tr>
+					<tr>
+						<td>City</td> <td><input type="text" value="" name="city" id="city"></td>
+					<tr>
+					<tr>
+						<td>State</td> <td><input type="text" value="" name="state" id="state"></td>
+					<tr>
+					<tr>
+						<td>Zip</td> <td><input type="text" value="" name="zip" id="zip"></td>
+					<tr>
+				</table>
+			 </td>
+			 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td>
+			 <td>
+				Responsible Parties
+				<table align ="center" border =0>
+					
+					<tr>
+						<td>Hiring Authorities</td> <td><%= select_tag "sel_tag" "stores[]", options_for_select(@hiringAuthority), :multiple => true %></td>
+					<tr>
+					<tr>
+						<td>HR</td> <td><input type="text" value="" name="hr" id="hr"></td>
+					<tr>
+					<tr>
+						<td>Manager</td> <td><input type="text" value="" name="manager" id="manager"></td>
+					<tr>
+					<tr>
+						<td>Reviewers</td> <td><input type="text" value="" name="reviewers" id="reviewers"></td>
+					<tr>
+				</table>
+			 </td>
+		 </tr>
+		 <tr>
+			<td>
+				<input type="submit" name="add" value="Add" id="add"   onclick ="return validateForm()">
+			 </td>
+		  </tr>
+		  <tr>
+			<td style= "color:red"><%=session[:lmsg]%></td>
+		  <tr>
+	</table>
+</div>

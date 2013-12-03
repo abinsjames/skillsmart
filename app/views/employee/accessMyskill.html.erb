@@ -1,0 +1,61 @@
+<title>Employee</title>
+<div id="container" style="width:100%" class ="textfont">
+	<div id="header" style="height:50px;margin-left: 3%;">
+		<%= link_to image_tag('/images/logo.jpg') , url_for({:controller => 'home', :action => 'homePage'}) %> 
+	</div>
+	<div id="menu" style="height:1000px;width: 200px;float:left;">
+		<br>
+		<p style ="margin-left:20px;">Focus</P>
+		<%= link_to image_tag('/images/job_openings.jpg') , url_for({:controller => 'employee', :action => 'myJobFinder'})%> <br> 
+			<div id="menu" style="float:right;">
+				<%= link_to image_tag('/images/skills.jpg') , url_for({:controller => 'employee', :action => 'myskillsPortfolio'})%><br>
+				<%= link_to image_tag('/images/workex.jpg') , url_for({:controller => 'employee', :action => 'myWorkHistory'}) %><br>
+			</div>
+		<%= link_to image_tag('/images/jobtracking.png')  %><br>
+		<%= link_to image_tag('/images/portfolio.gif') , url_for({:controller => 'employee', :action => 'portfolioNew'})%><br>
+			<div id="menu" style="float:right;">
+				<%= link_to image_tag('/images/education.jpg') , url_for({:controller => 'employee', :action => 'myEducation'}) %><br>
+				<%= link_to image_tag('/images/interviews.png') , url_for({:controller => 'employee', :action => 'myResume'})  %><br>
+			</div>
+		<%= link_to image_tag('/images/maindemo.jpg'), url_for({:controller => 'employee', :action => 'dashboard'})   %><br>
+	</div>
+	
+	
+	<table width="40%" border="0" cellpadding="0" cellspacing="0" align ="center" >
+		<tr>
+			<td align ="right">Welcome <%= session[:name] %> <%= session[:lastname] %></td>
+		</tr>
+		<tr>
+			<td><strong><h1>Access My Skills</h1></strong></td>
+		</tr>
+		<tr>
+			<td><div class = "textfont"><p style=" margin-left:250px;"><P>You can add your proficency and experience by using the slider<br>
+																			you can add your certifcates, reference and examples by clicking add link</p></div></td>
+		</tr>
+		
+		<tr>	
+			<form action="myskillsPortfolio" name="formName" method="post" enctype="multipart/form-data">
+				<td align="right">
+					<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="searchTable">
+						<tr>
+							<td>
+								<div align="right">
+									<%= form_tag  %>	
+										<input type="submit" value="Add Skill" name="add" id="add">&nbsp;
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</form>
+		</tr>
+
+		<tr>
+			<td>
+				<%= form_tag(:action => "accessMyskill") do  %>	
+					<%= render 'formAccessMyskill' %>
+				<%end%>
+			</td>
+		</tr>
+	</table>
+</div>	

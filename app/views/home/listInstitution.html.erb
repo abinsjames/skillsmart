@@ -1,0 +1,59 @@
+<title>Employer</title>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_style">
+
+	<tr>
+		<td><div style=" margin-left:200px;"><strong><h1>Institution List</h1></strong></div></td>
+	</tr>
+	<tr>
+		<td><span id="customerdetails"><strong><div <div style=" float:right;">Total Institution: <%=@totalcnt%>	</div></strong></span></td>
+	</tr>
+	<tr>
+		<td><%=session[:lmsg]%></td>
+	</tr>
+	<tr>	
+		<form action="listInstitution" name="formName" method="post" enctype="multipart/form-data">
+			<td align="right">
+				<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<div align="right">
+								<%= form_tag  %>	
+									<input type="submit" value="Add Institution" name="AddInstitution" id="add">&nbsp;
+									<input type="submit" value="Add Course" name="AddCourse" id="add">&nbsp;
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</form>
+	</tr>
+
+	<% unless(@cntArray.nil?)%>
+		<tr>
+			<td>
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<tr>
+						<td align="center" valign="middle">
+							<table width="100%" border="0" cellpadding="0" cellspacing="0">
+								<tr align="center" valign="middle">							
+									<th>No</th>
+									<th><div style="width:auto; height:auto; float:left; text-align:center;">Institution</a></div></th>	                            				
+												
+								</tr>
+								<% @cntArray.each do |value| 							
+								   @count = @count +1	%>
+								<tr>
+									<td align ="center"><%= @count %></td>
+									<td><%= value %></td>
+										
+								</tr>
+								<% end %>
+								
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	<% end %>	
+</table>

@@ -1,0 +1,49 @@
+
+<div class = "textfont">
+	<div style="text-align:center;">
+		<table align ="center">
+			<% unless(@Req_skill.blank?)%>
+				<tr>
+					</td>
+						<table cellpadding="5"> 
+							<tr align="center" valign="middle" bgcolor="#edf2f4">							
+								<th width="150">Required Skills</th>	             
+								<th width="150">Candidate Proficiency</th>               				
+								<th width="150">Employer Proficiency</th>   
+								<th width="150">Candidate Evaluated Proficiency</th>  
+																							
+							</tr>
+							<% @Req_skill.each do |value| %>
+											<% @count = @count + 1 %>
+											<tr>
+												<td><%= value['skillName'].to_s %></td>
+												<td><%= value['prof'].to_s %></td>
+												<td><%= value['empprof'].to_s %></td>
+												<td ><input type = "text" size ="2"></td>
+												
+											</tr>
+										<% end %>
+							<tr>
+								<tr align="center" valign="middle" bgcolor="#edf2f4">							
+								<th width="150">Desired Skills</th>	             
+								<th width="150">Candidate Proficiency</th>               				
+								<th width="150">Employer Proficiency</th>   
+								<th width="150">Candidate Evaluated Proficiency</th>  
+							</tr>
+							<% @Des_skill.each do |value| %>
+											<% @count = @count + 1 %>
+											<tr>
+												<td><%= value['skillName'].to_s %></td>
+												<td><%= value['prof'].to_s %></td>
+												<td><%= value['empprof'].to_s %></td>
+												<td ><input type = "text" size ="2"></td>
+												
+											</tr>
+										<% end %>			
+						</table>
+					</td>
+				</tr>
+			<% end %>	
+		</table>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+<script>
+	function validateForms()
+	{
+
+		var empUserName 			 = 		document.getElementById('eductorUserName');
+		var empPassword 	 		 = 		document.getElementById('eductorPassword');
+		
+		var empMobilelen 			 = 		empUserName.value.length;
+		var empEmaillen 		 	 = 		empPassword.value.length;
+		
+		if (empMobilelen == 0 ||  empEmaillen == 0)
+		{
+			alert("Some fields are empty");  
+			return false;
+		}
+		
+		else
+		{
+			return true;
+		}
+
+	}
+</script>
+
+
+<div class = "textfont">
+    <table border="0" align="center">
+		<% if(@msg) %>
+			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+					Username or Password incorrect
+				</p>
+			</div>
+		<% end %>
+		<tr>
+			<td align="right">Username:</td> 	
+			<td><input type="text" name="eductorUserName" id="eductorUserName"></td>
+		</tr>
+		<tr>  
+			<td align="right">Password:</td> 	
+			<td><input type="password" name="eductorPassword" id="eductorPassword"></td>
+		</tr> 
+		<tr>
+			<td></td>
+			<td><input type="submit" name="educatorLogin" id="educatorLogin" value="Login" onclick ="return validateForms()"></td>
+		</tr>
+		<div align = "center">
+			<%= link_to "Institution Register", {:controller => "educator", :action => "addInstitution"}%>
+		</div>
+	</table>
+<div>

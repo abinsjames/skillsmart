@@ -1,0 +1,31 @@
+<div class = "textfont">
+	<% unless(@cntArray.nil?)%>	
+		<table>
+			<tr>	
+				<td>
+					<div STYLE="margin-left: 10%">
+						<table width="100%" border="0" cellpadding="5" cellspacing="0" >
+							<tr bgcolor="#4D94FF">
+								<td width ="150">Jobs Watched</td>
+								<td width ="150">Company</td>
+								
+							</tr>
+							<% @cntArray.each do |value| %>	
+								<% @count = @count + 1 %>
+								<tr <% if (@count%2 == 0) %>
+													   bgcolor="#E4EFFF"
+												 <% else %>   	   	
+														bgcolor="#A6CAFF"
+												 <% end %>	>
+									<td width ="100"><%= value['job'].to_s %></td>
+									<td width ="100"><%= value['company'].to_s %></td>
+									
+								</tr>
+							<% end %>	
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	<% end %>	
+</div>
